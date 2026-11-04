@@ -8,10 +8,14 @@
  * newsletterEndpoint — כתובת לשליחת לידים מהשאלון (Mailchimp / ActiveTrail / Make / Zapier / Google Apps Script).
  * TODO: לחבר לרשימת התפוצה של מרים. כל עוד ריק — הלידים נשמרים רק במכשיר של הגולשת, ומוצג לה כפתור וואטסאפ.
  *
+ * leadEndpoint — כתובת לקבלת פניות מטופס "שיחת התאמה" בדף הנחיתה (Make / Zapier / Google Apps Script / מערכת CRM).
+ * TODO: לחבר. כל עוד ריק (וגם אין וואטסאפ) — הטופס מציג שהוא עדיין לא מחובר, ולא מעמיד פנים שנשלח.
+ *
  * whatsappNumber — מספר הוואטסאפ של מרים לפניות (בפורמט 9725XXXXXXXX). TODO: להשלים.
  */
 window.MIREL_CONFIG = {
   assistantEndpoint: "",
   newsletterEndpoint: "",
+  leadEndpoint: "",
   whatsappNumber: "",
 };

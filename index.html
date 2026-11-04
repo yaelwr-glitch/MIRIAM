@@ -56,8 +56,8 @@
         </ul>
         <div class="price-tag"><span>השקעה בעסק:</span><strong>5,500 ₪</strong></div>
         <div class="btn-row">
-          <a class="btn btn-lg" href="#register">אני רוצה להצטרף</a>
-          <a class="btn btn-outline btn-lg" href="#tools">לראות את הכלים</a>
+          <a class="btn btn-lg" href="#register">אני רוצה להצטרף לתכנית</a>
+          <a class="btn btn-outline btn-lg" href="#tools">אני רוצה לראות את הכלים</a>
         </div>
       </div>
       <div class="hero-photos" aria-hidden="false">
@@ -65,6 +65,8 @@
         <div class="ph ph-main"><img src="assets/img/petit-fours-pink.jpg" alt="פטיפורים ורודים ושוקולד של MIREL" width="549" height="549" fetchpriority="high"></div>
         <div class="ph ph-small"><img src="assets/img/petit-fours-dark.jpg" alt="מגש פטיפורים ומקרונים של MIREL" width="549" height="549"></div>
         <span class="float-sphere s1" aria-hidden="true"></span>
+        <span class="spin-badge" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="circ-hero" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#circ-hero" textLength="286" lengthAdjust="spacing">MIREL · BOUTIQUE PÂTISSERIE · FROM KITCHEN TO BUSINESS ·</textPath></text></svg><span class="core"></span></span>
+        <span class="bubble" aria-hidden="true">״את חייבת למכור את זה!״</span>
         <span class="float-sphere s2" aria-hidden="true"></span>
       </div>
     </div>
@@ -109,12 +111,31 @@
     </div>
   </section>
 
+  <!-- ===== PAIN QUESTIONS ===== -->
+  <section class="section pains has-bg-word on-dark" id="pains">
+    <div class="bg-word" data-parallax="0.25" aria-hidden="true">HOW MUCH IS IT REALLY WORTH?</div>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">רגע של כנות</span>
+        <h2>השאלות שכל אופה ביתית שואלת את עצמה</h2>
+      </div>
+      <div class="pain-stack">
+        <div class="pain" style="--r:-2.5deg">כמה הרווחת באמת מהעוגה האחרונה שמכרת?</div>
+        <div class="pain" style="--r:2deg">כמה שעות עבדת עליה — והאם הן נכנסו למחיר?</div>
+        <div class="pain" style="--r:-1.5deg">למה כל כך קשה להגיד "העוגה עולה 350 ₪"?</div>
+        <div class="pain" style="--r:2.5deg">מאיפה תגיע ההזמנה הבאה — ומתי?</div>
+      </div>
+      <p class="pain-answer">לשאלות האלה יש תשובות. <strong class="mark">והן שוות לך כסף כל חודש.</strong></p>
+      <a class="pain-arrow" href="#taste" aria-label="למחשבון">↓</a>
+    </div>
+  </section>
+
   <!-- ===== LIVE MINI CALCULATOR ===== -->
   <section class="section" id="taste">
     <div class="wrap taste">
       <div>
         <span class="eyebrow">נסי עכשיו · 30 שניות</span>
-        <h2>כמה באמת <strong>שווה העוגה שלך?</strong></h2>
+        <h2>כמה באמת <strong class="mark">שווה העוגה שלך?</strong></h2>
         <p class="muted">רוב האופות הביתיות גובות פחות ממה שהעוגה עולה להן — בלי לדעת. הזיזי את הסמנים וגלי מה המחיר הנכון.</p>
         <div class="slider-field"><div class="top"><label for="t-ing">חומרי גלם ואריזה</label><output id="o-ing" for="t-ing"></output></div><input type="range" id="t-ing" min="10" max="300" step="5" value="70"></div>
         <div class="slider-field"><div class="top"><label for="t-hours">שעות עבודה (כולל קישוט וניקיון)</label><output id="o-hours" for="t-hours"></output></div><input type="range" id="t-hours" min="0.5" max="8" step="0.5" value="3"></div>
@@ -135,7 +156,8 @@
   </section>
 
   <!-- ===== MODULES ===== -->
-  <section class="section" id="learn">
+  <section class="section has-bg-word" id="learn">
+    <div class="bg-word" data-parallax="-0.2" aria-hidden="true">FROM KITCHEN TO BUSINESS · FROM KITCHEN TO BUSINESS</div>
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">מה לומדים</span>
@@ -202,7 +224,7 @@
           <span class="eyebrow">שאלון חינמי · 2 דקות</span>
           <h2>האם את מוכנה לפתוח עסק קינוחים?</h2>
           <p>10 שאלות כנות — ותקבלי תמונת מצב אישית: איפה את כבר חזקה, מה עוד חסר, ומה הצעד הבא שלך.</p>
-          <a class="btn btn-lg" href="tools/quiz.html">להתחיל את השאלון</a>
+          <a class="btn btn-lg" href="tools/quiz.html">אני רוצה לבדוק אם אני מוכנה</a>
         </div>
         <div class="blob" style="max-width:220px;margin:0 auto;width:100%;border-radius:50%;background:radial-gradient(circle at 34% 30%, #fde6e6 0 10%, #ec9a9c 40%, #dc6e71 70%, #b9484c 100%)" aria-hidden="true">
           <svg viewBox="0 0 120 120" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"><circle cx="60" cy="60" r="34"/><path d="M48 50a12 12 0 1 1 17 11c-3 1.5-5 4-5 7v3M60 84v.5"/></svg>
@@ -214,7 +236,7 @@
   <!-- ===== RESULT NOT KNOWLEDGE ===== -->
   <section class="section section-alt" id="result">
     <div class="wrap">
-      <p class="quote">בתכנית הזו את לא קונה <em>עוד ידע</em>.<br>את קונה <em>תוצאה</em>: עסק ביתי עם מחירים, תפריט, לקוחות וסדר.</p>
+      <p class="quote">בתכנית הזו את לא קונה <em>עוד ידע</em>.<br>את קונה <em class="mark">תוצאה</em>: עסק ביתי עם מחירים, תפריט, לקוחות וסדר.</p>
       <div class="compare" style="margin-top:36px">
         <div class="card">
           <h3>קורס רגיל</h3>
@@ -275,7 +297,7 @@
         <blockquote>"מאז ומתמיד אהבתי יופי, אסתטיקה, ובעיקר… שוקולד."</blockquote>
         <p>מרים, ילידת פריז, נמשכה תמיד לחלונות הראווה של קונדיטוריות הבוטיק — לצבעים, לדיוק ולפרטים הקטנים. אחרי שנים בתחום המחשבים והמספרים, סדנת פטיפורים אחת שינתה הכול.</p>
         <p>היא למדה קונדיטוריה ב"אסטלה כתית אומן", ב"דן גורמה" ואצל שפים בכירים מהארץ ומחו״ל, ובנתה את MIREL — שוקולד וקונדיטוריית בוטיק: פטיפורים, בר קינוחים לאירועים, מארזי שוקולד ומיתוג על שוקולד.</p>
-        <p><strong>מרים עשתה בעצמה את המעבר מקריירה אחרת לעסק קינוחים</strong> — ובתכנית הזו היא מלמדת בדיוק את מה שהיא הייתה רוצה לדעת בהתחלה: איך לתמחר, איך למשוך לקוחות ואיך לנהל את העסק בלי ללמוד מטעויות יקרות.</p>
+        <p><strong class="mark">מרים עשתה בעצמה את המעבר מקריירה אחרת לעסק קינוחים</strong> — ובתכנית הזו היא מלמדת בדיוק את מה שהיא הייתה רוצה לדעת בהתחלה: איך לתמחר, איך למשוך לקוחות ואיך לנהל את העסק בלי ללמוד מטעויות יקרות.</p>
         <!-- TODO: מרים — לאשר את הנוסח (מבוסס על עמוד האודות באתר שלה) -->
         <p><a href="https://www.mirel-chocolate.co.il/">לאתר של MIREL ←</a></p>
       </div>
@@ -283,7 +305,8 @@
   </section>
 
   <!-- ===== TESTIMONIALS (placeholder) ===== -->
-  <section class="section section-alt" id="testimonials">
+  <section class="section section-alt has-bg-word" id="testimonials">
+    <div class="bg-word" data-parallax="0.18" aria-hidden="true">SWEET SUCCESS · SWEET SUCCESS</div>
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">מה אומרות הבוגרות</span>
@@ -291,9 +314,9 @@
       </div>
       <!-- TODO: להחליף בהמלצות אמיתיות (שם, עיר, תמונה, ציטוט) — לא לפרסם המלצות שאינן אמיתיות -->
       <div class="grid grid-3">
-        <div class="card"><p class="muted">כאן תופיע המלצה אמיתית של בוגרת התכנית.</p></div>
-        <div class="card"><p class="muted">כאן תופיע המלצה אמיתית של בוגרת התכנית.</p></div>
-        <div class="card"><p class="muted">כאן תופיע המלצה אמיתית של בוגרת התכנית.</p></div>
+        <div class="t-card"><span class="q" aria-hidden="true">”</span><p class="muted">כאן תופיע המלצה אמיתית של בוגרת התכנית.</p><span class="who">שם · עיר</span></div>
+        <div class="t-card"><span class="q" aria-hidden="true">”</span><p class="muted">כאן תופיע המלצה אמיתית של בוגרת התכנית.</p><span class="who">שם · עיר</span></div>
+        <div class="t-card"><span class="q" aria-hidden="true">”</span><p class="muted">כאן תופיע המלצה אמיתית של בוגרת התכנית.</p><span class="who">שם · עיר</span></div>
       </div>
     </div>
   </section>
@@ -303,7 +326,7 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">שאלות נפוצות</span>
-        <h2>יש לך שאלות? יש לנו תשובות</h2>
+        <h2>רגע לפני שנרשמים — <span class="mark">שואלים פתוח</span></h2>
       </div>
       <div class="faq">
         <details><summary>אני לא קונדיטורית מקצועית. זה מתאים לי?</summary><p>כן. התכנית מיועדת לאופות ביתיות שכבר אופות טוב ורוצות להפוך את זה לעסק. אנחנו מתמקדות בצד העסקי — תמחור, תפריט, לקוחות וניהול — ולא בהכשרה מקצועית מאפס.</p></details>
@@ -317,12 +340,69 @@
     </div>
   </section>
 
+  <!-- ===== TALK TO MIRIAM (multi-step form) ===== -->
+  <!-- TODO: מרים — לאשר שהיא מציעה שיחת התאמה, ולחבר את הטופס (leadEndpoint ב-tools/config.js) -->
+  <section class="section section-alt" id="talk">
+    <div class="wrap talk">
+      <div>
+        <span class="eyebrow">שיחת התאמה · בלי התחייבות</span>
+        <h2>לא בטוחה שזה בשבילך? <strong class="mark">בואי נדבר.</strong></h2>
+        <p>השאירי פרטים, ומרים תחזור אלייך לשיחה קצרה: נבין יחד איפה את עומדת היום, ואם התכנית מתאימה לך.</p>
+        <ul class="talk-points">
+          <li>שיחה קצרה וממוקדת</li>
+          <li>בלי לחץ ובלי התחייבות</li>
+          <li>מקבלות כיוון ברור לצעד הבא</li>
+        </ul>
+      </div>
+      <form class="steps-card" id="talk-form" novalidate>
+        <span class="spin-badge" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="circ-talk" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#circ-talk" textLength="286" lengthAdjust="spacing">MIREL · BOUTIQUE PÂTISSERIE · FROM KITCHEN TO BUSINESS ·</textPath></text></svg><span class="core"></span></span>
+        <div class="step-dots" aria-hidden="true"><span class="on">1</span><i></i><span>2</span><i></i><span>3</span></div>
+        <div class="step on" data-step="1">
+          <h3>נתחיל בהיכרות</h3>
+          <div class="field"><label for="tk-name">שם פרטי</label><input id="tk-name" type="text" autocomplete="given-name"></div>
+          <div class="field"><label for="tk-phone">טלפון</label><input id="tk-phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr"></div>
+        </div>
+        <div class="step" data-step="2">
+          <h3>איפה את היום?</h3>
+          <div class="choice-group" role="radiogroup" aria-label="איפה את היום?">
+            <label class="choice"><input type="radio" name="tk-stage" value="home"><span>אופה רק לבית ולחברים</span></label>
+            <label class="choice"><input type="radio" name="tk-stage" value="some"><span>כבר מכרתי כמה עוגות</span></label>
+            <label class="choice"><input type="radio" name="tk-stage" value="regular"><span>יש לי לקוחות קבועות</span></label>
+          </div>
+          <label>מתי נוח לדבר?</label>
+          <div class="choice-group row" role="radiogroup" aria-label="מתי נוח לדבר?">
+            <label class="choice"><input type="radio" name="tk-time" value="morning"><span>בוקר</span></label>
+            <label class="choice"><input type="radio" name="tk-time" value="noon"><span>צהריים</span></label>
+            <label class="choice"><input type="radio" name="tk-time" value="evening"><span>ערב</span></label>
+          </div>
+        </div>
+        <div class="step" data-step="3">
+          <h3>עוד משהו שחשוב שמרים תדע?</h3>
+          <div class="field"><label for="tk-note">לא חובה</label><textarea id="tk-note" rows="3"></textarea></div>
+          <label class="check small"><input type="checkbox" id="tk-consent"> אני מאשרת שמרים תיצור איתי קשר בטלפון או בוואטסאפ.</label>
+        </div>
+        <div class="talk-done" hidden>
+          <div class="big-check" aria-hidden="true">✓</div>
+          <h3 id="tk-done-title">תודה! 💗</h3>
+          <p id="tk-done-text">מרים תחזור אלייך בהקדם.</p>
+          <a class="btn btn-sm hidden" id="tk-wa" href="#" target="_blank" rel="noopener">או כתבי לה עכשיו בוואטסאפ</a>
+        </div>
+        <div class="form-err" id="tk-err" role="alert"></div>
+        <div class="step-nav" id="tk-nav">
+          <button type="button" class="btn btn-ghost btn-sm" id="tk-back" hidden>→ חזרה</button>
+          <button type="button" class="btn" id="tk-next">הבא</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
   <!-- ===== CTA ===== -->
   <section class="section" id="register">
     <div class="wrap">
-      <div class="cta-box">
+      <div class="cta-box on-dark">
         <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 0h1200v18c-20 0-24 30-44 30s-22-26-46-26-20 14-40 14-26-22-52-22-24 34-50 34-20-28-44-28-26 12-48 12-22-30-48-30-26 40-54 40-22-34-46-34-24 16-48 16-28-24-52-24-22 30-46 30-26-22-50-22-24 10-46 10-26-26-52-26-22 36-48 36-24-30-48-30-26 14-50 14-24-22-48-22-24 30-48 30-24-26-46-26-22 18-46 18-26-28-50-28-24 34-48 34-24-26-48-26-24 12-46 12-22-24-48-24L0 18z"/></svg>
-        <h2>מוכנה להפוך את האפייה לעסק?</h2>
+        <span class="spin-badge on-dark" aria-hidden="true" style="inset-inline-end:18px;top:56px"><svg viewBox="0 0 120 120"><defs><path id="circ-cta" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#circ-cta" textLength="286" lengthAdjust="spacing">MIREL · BOUTIQUE PÂTISSERIE · FROM KITCHEN TO BUSINESS ·</textPath></text></svg><span class="core"></span></span>
+        <h2>מוכנה להפוך את האפייה <span class="mark">לעסק?</span></h2>
         <p>שישה שלבים, ארבעה כלים חכמים וליווי אישי — מהעוגה הראשונה בתשלום ועד עסק ביתי מסודר.</p>
         <div class="price">5,500 ₪</div>
         <p class="small">השקעה חד־פעמית בעסק שלך</p>
@@ -353,6 +433,7 @@
 </footer>
 
 <script src="assets/common.js"></script>
+<script src="tools/config.js"></script>
 <script src="assets/js/landing.js"></script>
 </body>
 </html>

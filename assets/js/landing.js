@@ -97,3 +97,108 @@
     else { window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true }); window.addEventListener("resize", update); update(); }
   }
 })();
+
+/* ---------- v4: per-language phone screens, talk form, floating button ---------- */
+(function () {
+  "use strict";
+  const M = window.Mirel;
+  const $ = (id) => document.getElementById(id);
+  const CFG = window.MIREL_CONFIG || {};
+
+  // phone showcase screens in the selected language
+  if (M.lang !== "he") {
+    document.querySelectorAll(".phone .screen img").forEach((im) => {
+      im.src = im.getAttribute("src").replace(/\/(\w+)\.jpg$/, "/$1-" + M.lang + ".jpg");
+    });
+  }
+
+  // multi-step "talk to Miriam" form
+  const form = $("talk-form");
+  if (form) {
+    const steps = Array.from(form.querySelectorAll(".step"));
+    const dots = Array.from(form.querySelectorAll(".step-dots span"));
+    const lines = Array.from(form.querySelectorAll(".step-dots i"));
+    const err = $("tk-err"), next = $("tk-next"), back = $("tk-back");
+    let cur = 0;
+    const val = (name) => { const r = form.querySelector(`input[name="${name}"]:checked`); return r ? r.value : ""; };
+    const label = (name) => { const r = form.querySelector(`input[name="${name}"]:checked`); return r ? r.nextElementSibling.textContent.trim() : ""; };
+    function show(i) {
+      cur = i;
+      steps.forEach((s, k) => s.classList.toggle("on", k === i));
+      dots.forEach((d, k) => d.classList.toggle("on", k <= i));
+      lines.forEach((l, k) => l.classList.toggle("done", k < i));
+      back.hidden = i === 0;
+      next.textContent = M.t(i === steps.length - 1 ? "אני רוצה לדבר עם מרים" : "הבא");
+      err.textContent = "";
+      const f = steps[i].querySelector("input:not([type=radio]),textarea"); if (f && i > 0) f.focus({ preventScroll: true });
+    }
+    function check(i) {
+      if (i === 0) {
+        if (!$("tk-name").value.trim()) return M.t("נא למלא שם");
+        if ($("tk-phone").value.replace(/\D/g, "").length < 9) return M.t("נא למלא מספר טלפון תקין");
+      }
+      if (i === 1 && !val("tk-stage")) return M.t("נא לבחור איפה את היום");
+      if (i === 2 && !$("tk-consent").checked) return M.t("נא לאשר יצירת קשר");
+      return "";
+    }
+    back.addEventListener("click", () => show(Math.max(0, cur - 1)));
+    next.addEventListener("click", async () => {
+      const problem = check(cur);
+      if (problem) { err.textContent = problem; return; }
+      if (cur < steps.length - 1) { show(cur + 1); return; }
+      // submit
+      const lead = {
+        name: $("tk-name").value.trim(), phone: $("tk-phone").value.trim(),
+        stage: val("tk-stage"), time: val("tk-time"), note: $("tk-note").value.trim(),
+        lang: M.lang, source: "landing-talk", at: new Date().toISOString(),
+      };
+      const endpoint = (CFG.leadEndpoint || "").trim();
+      const wa = (CFG.whatsappNumber || "").trim();
+      const waText = M.t("היי מרים, אני {0}. אשמח לשיחת התאמה על התכנית. {1}{2}", lead.name, label("tk-stage"), lead.time ? " · " + label("tk-time") : "");
+      let sent = false;
+      if (endpoint) {
+        next.disabled = true; next.textContent = M.t("שולחת...");
+        try {
+          const r = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(lead) });
+          sent = r.ok || r.type === "opaque";
+        } catch (e) { sent = false; }
+        next.disabled = false;
+      }
+      if (!sent && !wa) {
+        err.textContent = endpoint ? M.t("לא הצלחנו לשלוח כרגע. נסי שוב בעוד רגע.") : M.t("הטופס עדיין לא מחובר (טיוטה) — הפרטים לא נשלחו.");
+        next.textContent = M.t("אני רוצה לדבר עם מרים");
+        return;
+      }
+      steps.forEach((s) => s.classList.remove("on"));
+      $("tk-nav").hidden = true; form.querySelector(".step-dots").hidden = true; err.textContent = "";
+      const done = form.querySelector(".talk-done"); done.hidden = false;
+      $("tk-done-title").textContent = M.t("תודה {0}! 💗", lead.name);
+      $("tk-done-text").textContent = sent ? M.t("מרים תחזור אלייך בהקדם.") : M.t("לחצי על הכפתור כדי לשלוח למרים הודעה בוואטסאפ.");
+      if (wa) { const b = $("tk-wa"); b.href = M.waLink(waText, wa); b.classList.remove("hidden"); if (!sent) b.textContent = M.t("שליחה בוואטסאפ"); }
+      M.confetti({ big: true });
+    });
+    show(0);
+  }
+
+  // floating "talk to Miriam" button
+  const target = $("talk");
+  if (target) {
+    const wa = ((window.MIREL_CONFIG || {}).whatsappNumber || "").trim();
+    const a = document.createElement("a");
+    a.className = "float-talk no-print";
+    a.href = wa ? M.waLink(M.t("היי מרים, יש לי שאלה על התכנית"), wa) : "#talk";
+    if (wa) { a.target = "_blank"; a.rel = "noopener"; }
+    a.innerHTML = `<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><span class="lbl">${M.esc(M.t("שאלה? דברי עם מרים"))}</span>`;
+    a.setAttribute("aria-label", M.t("שאלה? דברי עם מרים"));
+    document.body.appendChild(a);
+    const reg = $("register");
+    const near = { talk: false, reg: false };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((en) => { near.talk = en[0].isIntersecting; upd(); }, { threshold: 0.15 }).observe(target);
+      if (reg) new IntersectionObserver((en) => { near.reg = en[0].isIntersecting; upd(); }, { threshold: 0.3 }).observe(reg);
+    }
+    function upd() { a.classList.toggle("show", scrollY > 600 && !near.talk && !near.reg); }
+    addEventListener("scroll", upd, { passive: true });
+    upd();
+  }
+})();

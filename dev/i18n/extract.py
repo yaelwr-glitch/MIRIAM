@@ -102,6 +102,8 @@ for f in sorted(glob.glob(ROOT+'assets/js/*.js'))+[ROOT+'assets/common.js', ROOT
     scan_js(open(f).read(), f.replace(ROOT,''))
 out=[{'k':k,'f':sorted(v)} for k,v in keys.items()]
 json.dump(out, open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), 'keys.json'),'w'), ensure_ascii=False, indent=0)
-print(len(out), sum(len(x['k']) for x in out))
-from collections import Counter
-c=Counter(x['f'][0] for x in out); print(c.most_common())
+print(len(out), 'strings found')
+tr=json.load(open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)),'translations.json')))
+missing=[x['k'] for x in out if norm(x['k']) not in tr]
+print(len(missing), 'without translation:')
+for k in missing: print('  ', k)

@@ -466,10 +466,34 @@
     window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
     onScroll();
 
-    if (reduce || !("IntersectionObserver" in window)) return;
+    if (reduce || !("IntersectionObserver" in window)) {
+      document.querySelectorAll(".mark").forEach((m) => m.classList.add("lit"));
+      return;
+    }
+    // highlighter marks draw themselves when they come into view
+    const mio = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting) { en.target.classList.add("lit"); mio.unobserve(en.target); }
+    }), { threshold: 0.6 });
+    document.querySelectorAll(".mark").forEach((m) => mio.observe(m));
+    // giant outline words drift with scroll: <div class="bg-word" data-parallax="0.2">
+    const words = Array.from(document.querySelectorAll("[data-parallax]"));
+    if (words.length) {
+      let tick = false;
+      const move = () => {
+        tick = false;
+        words.forEach((w) => {
+          const r = w.parentElement.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) return;
+          const k = parseFloat(w.dataset.parallax) || 0.2;
+          w.style.transform = "translateX(" + ((r.top - innerHeight / 2) * k).toFixed(1) + "px)";
+        });
+      };
+      addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(move); } }, { passive: true });
+      move();
+    }
 
     // scroll reveal — added by JS only, so content is always visible without it
-    const groups = [".section-head", ".card", ".module", ".faq details", ".quote", ".compare > *", ".gallery figure", ".about > *", ".cta-box", ".quiz-teaser", ".tool-card", ".stats-strip .wrap > div", ".lesson", ".msg-card"];
+    const groups = [".section-head", ".pain", ".t-card", ".steps-card", ".card", ".module", ".faq details", ".quote", ".compare > *", ".gallery figure", ".about > *", ".cta-box", ".quiz-teaser", ".tool-card", ".stats-strip .wrap > div", ".lesson", ".msg-card"];
     const els = [];
     groups.forEach((sel) => document.querySelectorAll(sel).forEach((el) => {
       if (el.closest(".hero") || el.classList.contains("reveal")) return;
