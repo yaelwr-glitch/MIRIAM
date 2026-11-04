@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>שאלון: האם אני מוכנה לפתוח עסק קינוחים? | MIREL</title>
+  <meta name="description" content="10 שאלות קצרות — ותגלי כמה את מוכנה להפוך את האפייה לעסק, ומה הצעד הבא שלך.">
+  <meta name="theme-color" content="#fbf6f1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c98b7f'/%3E%3Ctext x='32' y='43' font-size='32' text-anchor='middle' fill='white' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+<style>
+  .quiz-wrap { max-width: 720px; margin: 0 auto; padding-bottom: 56px; }
+  .q-opts { display: grid; gap: 10px; margin-top: 14px; }
+  .q-opt { text-align: start; border: 1.5px solid var(--line); background: #fff; border-radius: 14px; padding: 14px 16px; font: 500 1rem var(--font-body); color: var(--choc); cursor: pointer; min-height: 52px; }
+  .q-opt:hover { border-color: var(--rose); background: #fdf6f4; }
+  .q-opt[aria-pressed="true"] { border-color: var(--rose-dark); background: var(--blush); }
+  .q-num { color: var(--rose-dark); font-weight: 600; font-size: .9rem; }
+  .result-score { font-family: var(--font-display); font-size: 3.2rem; color: var(--rose-dark); line-height: 1; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">דילוג לתוכן</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="מהמטבח לעסק משלי — עמוד הבית">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-text"><strong>מהמטבח לעסק משלי</strong><span>by MIREL שוקולד וקונדיטוריית בוטיק</span></span>
+    </a>
+    <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="תפריט">☰</button>
+    <nav id="site-nav" class="site-nav" aria-label="ניווט ראשי">
+      <ul>
+        <li><a href="../">הקורס</a></li>
+        <li><a href="index.html">כל הכלים</a></li>
+        <li><a href="students.html">אזור תלמידות</a></li>
+        <li><a href="quiz.html" aria-current="page">שאלון: מוכנה לעסק?</a></li>
+        <li><a href="https://www.mirel-chocolate.co.il/">לאתר MIREL</a></li>
+        <li><a class="nav-cta" href="../#register">להרשמה לקורס</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="tool-hero">
+    <div class="wrap quiz-wrap" style="padding-bottom:0">
+      <span class="eyebrow">שאלון קצר · 2 דקות</span>
+      <h1>האם אני מוכנה לפתוח עסק קינוחים?</h1>
+      <p>10 שאלות כנות — ותקבלי תמונת מצב אישית: איפה את חזקה, מה עוד חסר, ומה הצעד הבא שלך.</p>
+    </div>
+  </section>
+
+  <div class="wrap quiz-wrap">
+    <div class="panel" id="quiz-box" aria-live="polite"></div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <strong>מהמטבח לעסק משלי</strong> · תכנית של <a href="https://www.mirel-chocolate.co.il/">MIREL שוקולד וקונדיטוריית בוטיק</a>
+      <div class="small muted">המידע שתזיני נשמר רק בדפדפן שלך, במכשיר הזה. © <span data-year>2026</span></div>
+    </div>
+    <ul>
+      <li><a href="index.html">כל הכלים</a></li>
+      <li><a href="students.html">אזור תלמידות</a></li>
+      <li><a href="quiz.html">שאלון התאמה</a></li>
+      <li><a href="../">על הקורס</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="config.js"></script>
+<script src="../assets/common.js"></script>
+<script src="../assets/js/quiz.js"></script>
+</body>
+</html>

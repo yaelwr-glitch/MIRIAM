@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מחשבון יעד הכנסה | מהמטבח לעסק משלי</title>
+  <meta name="description" content="אני רוצה להרוויח X ₪ בחודש — כמה עוגות או הזמנות צריך בשבוע, ובאיזה מחיר?">
+  <meta name="theme-color" content="#fbf6f1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c98b7f'/%3E%3Ctext x='32' y='43' font-size='32' text-anchor='middle' fill='white' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">דילוג לתוכן</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="מהמטבח לעסק משלי — עמוד הבית">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-text"><strong>מהמטבח לעסק משלי</strong><span>by MIREL שוקולד וקונדיטוריית בוטיק</span></span>
+    </a>
+    <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="תפריט">☰</button>
+    <nav id="site-nav" class="site-nav" aria-label="ניווט ראשי">
+      <ul>
+        <li><a href="../">הקורס</a></li>
+        <li><a href="index.html" aria-current="page">כל הכלים</a></li>
+        <li><a href="students.html">אזור תלמידות</a></li>
+        <li><a href="quiz.html">שאלון: מוכנה לעסק?</a></li>
+        <li><a href="https://www.mirel-chocolate.co.il/">לאתר MIREL</a></li>
+        <li><a class="nav-cta" href="../#register">להרשמה לקורס</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="tool-hero">
+    <div class="wrap">
+      <span class="eyebrow">כלי 8</span>
+      <h1>מחשבון יעד הכנסה</h1>
+      <p>"אני רוצה להרוויח ___ ₪ בחודש." מכניסות את היעד — ומקבלות תוכנית: כמה הזמנות צריך בשבוע, באיזה מחיר, וכמה שעות זה ייקח. ככה היעד הופך למספר שאפשר לעבוד איתו.</p>
+    </div>
+  </section>
+
+  <div class="wrap tool-layout">
+    <div>
+      <div class="panel">
+        <h2>היעד שלי</h2>
+        <div class="field"><label for="i-goal">רווח נקי שאני רוצה בחודש (₪)</label><input id="i-goal" type="number" min="0" step="100" inputmode="numeric" style="font-size:1.3rem"></div>
+        <div class="field-row">
+          <div class="field"><label for="i-price">מחיר ממוצע להזמנה ₪</label><input id="i-price" type="number" min="1" step="5" inputmode="decimal"><div class="hint" id="price-hint"></div></div>
+          <div class="field"><label for="i-costpct">עלות חומרי גלם ואריזה (% מהמחיר)</label><input id="i-costpct" type="number" min="0" max="95" step="1" inputmode="decimal"></div>
+          <div class="field"><label for="i-hours">שעות עבודה להזמנה</label><input id="i-hours" type="number" min="0" step="0.25" inputmode="decimal"></div>
+          <div class="field"><label for="i-fixed">הוצאות קבועות בחודש ₪</label><input id="i-fixed" type="number" min="0" step="50" inputmode="decimal"><div class="hint">פרסום, ביטוח, רו״ח, ציוד, דלק</div></div>
+          <div class="field"><label for="i-tax">הפרשה למסים (%)</label><input id="i-tax" type="number" min="0" max="60" step="1" inputmode="decimal"><div class="hint">הערכה בלבד — כדאי לבדוק עם רו״ח</div></div>
+          <div class="field"><label for="i-days">ימי עבודה בשבוע</label><input id="i-days" type="number" min="1" max="7" step="1" inputmode="numeric"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>מה אם...?</h2>
+        <p class="muted">אותו יעד, במחירים שונים. ככה רואים למה העלאת מחיר קטנה חוסכת המון עבודה:</p>
+        <div class="table-wrap"><table class="data" id="scen"></table></div>
+      </div>
+
+      <div class="panel">
+        <h2>ואם יש לי רק מעט זמן?</h2>
+        <div class="field"><label for="i-cap">כמה הזמנות אני יכולה לקבל בשבוע, לכל היותר?</label><input id="i-cap" type="number" min="1" step="1" inputmode="numeric"></div>
+        <div id="cap-out" class="info-box"></div>
+      </div>
+      <div id="backup"></div>
+    </div>
+
+    <aside class="sticky-col">
+      <div class="panel" aria-live="polite">
+        <h2>התוכנית</h2>
+        <div class="stats" id="stats"></div>
+        <div id="verdict" style="margin-top:12px"></div>
+        <div class="btn-row" style="margin-top:12px">
+          <button class="btn btn-sm btn-ghost" id="copy-btn" type="button">העתקת התוכנית</button>
+          <a class="btn btn-sm btn-ghost" href="pricing.html">לחישוב מחיר מדויק ←</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <strong>מהמטבח לעסק משלי</strong> · תכנית של <a href="https://www.mirel-chocolate.co.il/">MIREL שוקולד וקונדיטוריית בוטיק</a>
+      <div class="small muted">המידע שתזיני נשמר רק בדפדפן שלך, במכשיר הזה. © <span data-year>2026</span></div>
+    </div>
+    <ul>
+      <li><a href="index.html">כל הכלים</a></li>
+      <li><a href="students.html">אזור תלמידות</a></li>
+      <li><a href="quiz.html">שאלון התאמה</a></li>
+      <li><a href="../">על הקורס</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="../assets/common.js"></script>
+<script src="../assets/js/income.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>30 יום להזמנה הראשונה | מהמטבח לעסק משלי</title>
+  <meta name="description" content="תוכנית פעולה יומית: 30 ימים, צעד קטן בכל יום — עד ההזמנה הראשונה בתשלום.">
+  <meta name="theme-color" content="#fbf6f1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c98b7f'/%3E%3Ctext x='32' y='43' font-size='32' text-anchor='middle' fill='white' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">דילוג לתוכן</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="מהמטבח לעסק משלי — עמוד הבית">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-text"><strong>מהמטבח לעסק משלי</strong><span>by MIREL שוקולד וקונדיטוריית בוטיק</span></span>
+    </a>
+    <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="תפריט">☰</button>
+    <nav id="site-nav" class="site-nav" aria-label="ניווט ראשי">
+      <ul>
+        <li><a href="../">הקורס</a></li>
+        <li><a href="index.html" aria-current="page">כל הכלים</a></li>
+        <li><a href="students.html">אזור תלמידות</a></li>
+        <li><a href="quiz.html">שאלון: מוכנה לעסק?</a></li>
+        <li><a href="https://www.mirel-chocolate.co.il/">לאתר MIREL</a></li>
+        <li><a class="nav-cta" href="../#register">להרשמה לקורס</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="tool-hero">
+    <div class="wrap">
+      <span class="eyebrow no-print">בונוס</span>
+      <h1>30 יום להזמנה הראשונה</h1>
+      <p>לא עוד "יום אחד אתחיל". תוכנית של צעד קטן אחד בכל יום — 15–30 דקות — שמובילה אותך מהרעיון ועד ההזמנה הראשונה בתשלום. המשימה של היום מסומנת במסגרת.</p>
+      <div class="field no-print" style="max-width:260px"><label for="cl-start">התחלתי ביום</label><input type="date" id="cl-start"></div>
+    </div>
+  </section>
+  <div class="wrap" style="padding-bottom:56px">
+    <div class="panel" id="cl-progress" style="margin-bottom:16px"></div>
+    <div id="cl-sections"></div>
+    <div class="btn-row no-print" style="margin-top:16px">
+      <button class="btn btn-ghost btn-sm" id="cl-print" type="button">הדפסה</button>
+      <button class="btn btn-danger btn-sm" id="cl-reset" type="button">איפוס</button>
+    </div>
+    <div id="backup"></div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <strong>מהמטבח לעסק משלי</strong> · תכנית של <a href="https://www.mirel-chocolate.co.il/">MIREL שוקולד וקונדיטוריית בוטיק</a>
+      <div class="small muted">המידע שתזיני נשמר רק בדפדפן שלך, במכשיר הזה. © <span data-year>2026</span></div>
+    </div>
+    <ul>
+      <li><a href="index.html">כל הכלים</a></li>
+      <li><a href="students.html">אזור תלמידות</a></li>
+      <li><a href="quiz.html">שאלון התאמה</a></li>
+      <li><a href="../">על הקורס</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="../assets/common.js"></script>
+<script>
+window.CHECKLIST = {
+  key: "mirel_launch_v1", tag: "30-days", withDays: true,
+  sections: [
+    { title: "שבוע 1 — המוצר והמחיר", items: [
+      { id: "d1", day: 1, t: "לכתוב את 3 המוצרים שאני הכי טובה בהם", d: "אלה שתמיד מבקשים ממך שוב." },
+      { id: "d2", day: 2, t: "לחשב עלות ומחיר למוצר הראשון", link: "pricing.html" },
+      { id: "d3", day: 3, t: "לחשב עלות ומחיר לשני המוצרים הנוספים", link: "pricing.html" },
+      { id: "d4", day: 4, t: "להגדיר יעד הכנסה חודשי ראשון (צנוע!)", link: "income.html" },
+      { id: "d5", day: 5, t: "לבחור שם לעסק ולפתוח פרופיל אינסטגרם עסקי" },
+      { id: "d6", day: 6, t: "לאפות את מוצר הדגל ולצלם אותו באור יום — 20 תמונות לפחות" },
+      { id: "d7", day: 7, t: "מנוחה וחשיבה: מה למדתי השבוע? מה מפחיד אותי?" },
+    ]},
+    { title: "שבוע 2 — התדמית", items: [
+      { id: "d8", day: 8, t: "לבנות תפריט מעוצב", link: "menu.html" },
+      { id: "d9", day: 9, t: "לכתוב ביו לאינסטגרם ולהגדיר וואטסאפ ביזנס" },
+      { id: "d10", day: 10, t: "להעלות 3 פוסטים ראשונים", link: "captions.html" },
+      { id: "d11", day: 11, t: "להכין הודעות קבועות: מענה ראשון, אישור הזמנה, מקדמה", link: "messages.html" },
+      { id: "d12", day: 12, t: "לקבוע מדיניות מקדמה, ביטול ואזור משלוחים" },
+      { id: "d13", day: 13, t: "להכין תבנית הצעת מחיר", link: "quote.html" },
+      { id: "d14", day: 14, t: "להעלות עוד 3 פוסטים + סטורי \"מאחורי הקלעים\"" },
+    ]},
+    { title: "שבוע 3 — לספר לעולם", items: [
+      { id: "d15", day: 15, t: "לכתוב רשימה של 30 אנשים שמכירים אותי ואוהבים את מה שאני אופה" },
+      { id: "d16", day: 16, t: "לשלוח להם הודעה אישית: \"פתחתי עסק! הנה התפריט\"" },
+      { id: "d17", day: 17, t: "לפרסם בקבוצות השכונה / הקהילה (לפי הכללים שלהן)" },
+      { id: "d18", day: 18, t: "להציע 3 עוגות טעימה במחיר עלות לאנשים שיתנו המלצה וצילום" },
+      { id: "d19", day: 19, t: "לפתוח פרופיל עסק בגוגל" },
+      { id: "d20", day: 20, t: "לפנות ל־2 עסקים מקומיים (בית קפה, חנות פרחים, מעצבת אירועים) להצעת שיתוף" },
+      { id: "d21", day: 21, t: "לבדוק: כמה פניות הגיעו? לענות לכולן תוך שעה" },
+    ]},
+    { title: "שבוע 4 — ההזמנות הראשונות", items: [
+      { id: "d22", day: 22, t: "להכניס כל הזמנה ופנייה ליומן ההזמנות", link: "orders.html" },
+      { id: "d23", day: 23, t: "לפרסם המלצה ראשונה (עם אישור הלקוחה)" },
+      { id: "d24", day: 24, t: "להציע מבצע פתיחה מוגבל בזמן", link: "messages.html" },
+      { id: "d25", day: 25, t: "להכין רשימת קניות לפי ההזמנות", link: "orders.html" },
+      { id: "d26", day: 26, t: "לאפות, לארוז יפה, לצלם לפני המסירה" },
+      { id: "d27", day: 27, t: "לשלוח הודעת תודה + בקשת המלצה", link: "messages.html" },
+      { id: "d28", day: 28, t: "לחשב: כמה הרווחתי בפועל? המחיר נכון?", link: "pricing.html" },
+      { id: "d29", day: 29, t: "לתכנן את החודש הבא: יעד, מוצר עונתי, חג קרוב" },
+      { id: "d30", day: 30, t: "לחגוג! 🎉 קיבלתי הזמנה ראשונה בתשלום" },
+    ]},
+  ],
+};
+</script>
+<script src="../assets/js/checklist.js"></script>
+</body>
+</html>

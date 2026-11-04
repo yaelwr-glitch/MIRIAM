@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>יומן הזמנות חכם | מהמטבח לעסק משלי</title>
+  <meta name="description" content="יומן הזמנות לעסק קינוחים ביתי: כל ההזמנות ביומן, מה מכינים בכל יום ורשימת קניות שנבנית אוטומטית מהמתכונים.">
+  <meta name="theme-color" content="#fbf6f1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c98b7f'/%3E%3Ctext x='32' y='43' font-size='32' text-anchor='middle' fill='white' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+<style>
+  .cal-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .cal-head h3 { margin: 0; font-size: 1.2rem; }
+  .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal .dow { text-align: center; font-size: .78rem; color: var(--muted); padding: 4px 0; }
+  .cal button.day { aspect-ratio: 1; min-height: 40px; border: 1px solid var(--line); background: #fff; border-radius: 10px; cursor: pointer; font: 500 .95rem var(--font-body); color: var(--choc); position: relative; padding: 0; }
+  .cal button.day.other { opacity: .38; }
+  .cal button.day.today { border-color: var(--rose-dark); border-width: 2px; }
+  .cal button.day.sel { background: var(--choc); color: #fff; border-color: var(--choc); }
+  .cal button.day .cnt { position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); min-width: 18px; height: 18px; border-radius: 999px; background: var(--rose-dark); color: #fff; font-size: .7rem; line-height: 18px; padding: 0 4px; }
+  .cal button.day.sel .cnt { background: var(--blush); color: var(--choc); }
+  .cal button.day.alldone .cnt { background: var(--ok); }
+  .order-card { border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: var(--cream); display: grid; gap: 6px; }
+  .order-card.done { background: #f4f9f5; border-color: #cfe5d6; }
+  .order-card .oc-top { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+  .order-card ul { margin: 0; padding-inline-start: 18px; }
+  .order-item-row { display: grid; grid-template-columns: 1fr 80px auto; gap: 8px; align-items: end; }
+  .shop-item { display: flex; justify-content: space-between; gap: 10px; padding: 8px 4px; border-bottom: 1px dashed var(--line); }
+  .shop-item label { display: flex; gap: 8px; align-items: center; font-weight: 400; margin: 0; cursor: pointer; }
+  .shop-item input:checked + span { text-decoration: line-through; color: var(--muted); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">דילוג לתוכן</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="מהמטבח לעסק משלי — עמוד הבית">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-text"><strong>מהמטבח לעסק משלי</strong><span>by MIREL שוקולד וקונדיטוריית בוטיק</span></span>
+    </a>
+    <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="תפריט">☰</button>
+    <nav id="site-nav" class="site-nav" aria-label="ניווט ראשי">
+      <ul>
+        <li><a href="../">הקורס</a></li>
+        <li><a href="index.html" aria-current="page">כל הכלים</a></li>
+        <li><a href="students.html">אזור תלמידות</a></li>
+        <li><a href="quiz.html">שאלון: מוכנה לעסק?</a></li>
+        <li><a href="https://www.mirel-chocolate.co.il/">לאתר MIREL</a></li>
+        <li><a class="nav-cta" href="../#register">להרשמה לקורס</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="tool-hero no-print">
+    <div class="wrap">
+      <span class="eyebrow">כלי 3</span>
+      <h1>יומן הזמנות חכם</h1>
+      <p>כל ההזמנות במקום אחד: מה מכינים בכל יום, מי שילמה מקדמה, ורשימת קניות שנבנית לבד מהמתכונים ששמרת במחשבון המחירים.</p>
+    </div>
+  </section>
+
+  <div class="wrap tool-layout">
+    <div>
+      <div class="panel no-print">
+        <div class="stats" id="stats"></div>
+      </div>
+
+      <div class="panel">
+        <div class="tabs no-print" role="tablist">
+          <button class="tab" role="tab" data-view="cal" type="button" aria-selected="true">יומן</button>
+          <button class="tab" role="tab" data-view="list" type="button" aria-selected="false">כל ההזמנות</button>
+          <button class="tab" role="tab" data-view="shop" type="button" aria-selected="false">רשימת קניות</button>
+        </div>
+
+        <div id="view-cal">
+          <div class="cal-head no-print">
+            <button class="btn btn-sm btn-ghost" id="cal-prev" type="button" aria-label="החודש הקודם">→</button>
+            <h3 id="cal-title"></h3>
+            <button class="btn btn-sm btn-ghost" id="cal-next" type="button" aria-label="החודש הבא">←</button>
+          </div>
+          <div class="cal no-print" id="cal"></div>
+          <div id="day-panel" style="margin-top:16px"></div>
+        </div>
+
+        <div id="view-list" class="hidden">
+          <div class="btn-row no-print" style="margin-bottom:10px">
+            <label class="check"><input type="checkbox" id="show-done"> להציג גם הזמנות שהושלמו</label>
+          </div>
+          <div class="rows" id="order-list"></div>
+        </div>
+
+        <div id="view-shop" class="hidden">
+          <div class="field-row no-print">
+            <div class="field"><label for="shop-from">מתאריך</label><input type="date" id="shop-from"></div>
+            <div class="field"><label for="shop-to">עד תאריך</label><input type="date" id="shop-to"></div>
+          </div>
+          <div id="shop-list"></div>
+          <div class="btn-row no-print" style="margin-top:12px">
+            <button class="btn btn-sm" id="shop-copy" type="button">העתקת הרשימה</button>
+            <a class="btn btn-sm btn-ghost" id="shop-wa" href="#" target="_blank" rel="noopener">שליחה בוואטסאפ</a>
+            <button class="btn btn-sm btn-ghost" id="shop-print" type="button">הדפסה</button>
+          </div>
+        </div>
+      </div>
+      <div id="backup"></div>
+    </div>
+
+    <aside class="sticky-col no-print">
+      <form class="panel" id="order-form" autocomplete="off">
+        <div class="panel-head"><h2 id="form-title">הזמנה חדשה</h2></div>
+        <div class="field"><label for="o-customer">שם הלקוחה</label><input id="o-customer" type="text" required></div>
+        <div class="field-row">
+          <div class="field"><label for="o-phone">טלפון</label><input id="o-phone" type="tel" inputmode="tel"></div>
+          <div class="field"><label for="o-due">תאריך מסירה</label><input id="o-due" type="date" required></div>
+          <div class="field"><label for="o-time">שעה</label><input id="o-time" type="time"></div>
+          <div class="field"><label for="o-delivery">מסירה</label><select id="o-delivery"><option value="pickup">איסוף עצמי</option><option value="delivery">משלוח</option></select></div>
+        </div>
+        <label>מה הוזמן</label>
+        <div class="rows" id="o-items"></div>
+        <div class="btn-row" style="margin:8px 0 12px">
+          <button type="button" class="btn btn-sm btn-outline" id="o-add-item">+ פריט</button>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="o-price">מחיר כולל ₪</label><input id="o-price" type="number" min="0" step="any" inputmode="decimal"><div class="hint" id="o-price-hint"></div></div>
+          <div class="field"><label for="o-deposit">מקדמה ששולמה ₪</label><input id="o-deposit" type="number" min="0" step="any" inputmode="decimal"></div>
+        </div>
+        <div class="field"><label for="o-notes">הערות (כיתוב, אלרגיות, כתובת)</label><textarea id="o-notes" rows="2"></textarea></div>
+        <div class="btn-row">
+          <button class="btn" type="submit">שמירת הזמנה</button>
+          <button class="btn btn-ghost hidden" type="button" id="o-cancel">ביטול עריכה</button>
+        </div>
+        <p class="hint">רשימת הקניות מחושבת לפי פריטים שנבחרו ממתכונים שמורים.</p>
+      </form>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <strong>מהמטבח לעסק משלי</strong> · תכנית של <a href="https://www.mirel-chocolate.co.il/">MIREL שוקולד וקונדיטוריית בוטיק</a>
+      <div class="small muted">המידע שתזיני נשמר רק בדפדפן שלך, במכשיר הזה. © <span data-year>2026</span></div>
+    </div>
+    <ul>
+      <li><a href="index.html">כל הכלים</a></li>
+      <li><a href="students.html">אזור תלמידות</a></li>
+      <li><a href="quiz.html">שאלון התאמה</a></li>
+      <li><a href="../">על הקורס</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="../assets/common.js"></script>
+<script src="../assets/js/orders.js"></script>
+</body>
+</html>

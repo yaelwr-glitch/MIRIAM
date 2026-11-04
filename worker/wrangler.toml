@@ -1,0 +1,13 @@
+# Cloudflare Worker — עוזרת האפייה של "מהמטבח לעסק משלי"
+# פריסה: ראו README.md בתיקייה הזו.
+name = "mirel-baking-assistant"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# מאילו אתרים מותר לפנות ל-Worker (מופרד בפסיקים). להוסיף כאן את הדומיין של מרים אם הכלי מוטמע שם.
+ALLOWED_ORIGINS = "https://yaelwr-glitch.github.io,https://www.mirel-chocolate.co.il,https://mirel-chocolate.co.il,https://course.mirel-chocolate.co.il"
+
+# את המפתח לא כותבים כאן! מגדירים אותו כסוד:
+#   npx wrangler secret put ANTHROPIC_API_KEY

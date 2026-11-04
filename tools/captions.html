@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מחולל כיתובים לאינסטגרם | מהמטבח לעסק משלי</title>
+  <meta name="description" content="בוחרים סוג קינוח, אירוע וסגנון — ומקבלים כיתוב מוכן לאינסטגרם עם האשטגים.">
+  <meta name="theme-color" content="#fbf6f1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c98b7f'/%3E%3Ctext x='32' y='43' font-size='32' text-anchor='middle' fill='white' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">דילוג לתוכן</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="מהמטבח לעסק משלי — עמוד הבית">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-text"><strong>מהמטבח לעסק משלי</strong><span>by MIREL שוקולד וקונדיטוריית בוטיק</span></span>
+    </a>
+    <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="תפריט">☰</button>
+    <nav id="site-nav" class="site-nav" aria-label="ניווט ראשי">
+      <ul>
+        <li><a href="../">הקורס</a></li>
+        <li><a href="index.html" aria-current="page">כל הכלים</a></li>
+        <li><a href="students.html">אזור תלמידות</a></li>
+        <li><a href="quiz.html">שאלון: מוכנה לעסק?</a></li>
+        <li><a href="https://www.mirel-chocolate.co.il/">לאתר MIREL</a></li>
+        <li><a class="nav-cta" href="../#register">להרשמה לקורס</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="tool-hero">
+    <div class="wrap">
+      <span class="eyebrow">כלי 10</span>
+      <h1>מחולל כיתובים לאינסטגרם</h1>
+      <p>צילמת עוגה מהממת ואין לך מילים? בוחרות מה זה, לאיזה אירוע ובאיזה סגנון — ומקבלות כמה כיתובים מוכנים עם האשטגים. לא אהבת? עוד לחיצה, עוד גרסה.</p>
+    </div>
+  </section>
+
+  <div class="wrap tool-layout">
+    <div>
+      <div class="panel">
+        <div class="field"><label>מה בתמונה?</label><div class="chips" id="c-dessert" role="group" aria-label="סוג הקינוח"></div></div>
+        <div class="field"><label>לאיזה אירוע?</label><div class="chips" id="c-occasion" role="group" aria-label="אירוע"></div></div>
+        <div class="field"><label>באיזה סגנון?</label><div class="chips" id="c-style" role="group" aria-label="סגנון"></div></div>
+        <div class="field-row">
+          <div class="field"><label for="c-detail">פרט מיוחד (לא חובה)</label><input id="c-detail" type="text" placeholder="פטל טרי, ציור ביד, בהשראת שמלת הכלה..."></div>
+          <div class="field"><label for="c-city">אזור (להאשטגים)</label><input id="c-city" type="text" placeholder="ירושלים"></div>
+        </div>
+        <div class="field"><label for="c-cta">קריאה לפעולה</label>
+          <select id="c-cta"><option value="dm">הזמנות בהודעה פרטית</option><option value="link">הזמנות בקישור בביו</option><option value="wa">הזמנות בוואטסאפ</option><option value="none">בלי</option></select></div>
+        <button class="btn" type="button" id="gen">לייצר כיתובים ✨</button>
+      </div>
+      <div class="rows" id="out" aria-live="polite"></div>
+    </div>
+    <aside class="sticky-col">
+      <div class="panel">
+        <h2>הכיתובים ששמרתי</h2>
+        <ul class="list-plain" id="favs"></ul>
+        <div id="backup"></div>
+      </div>
+      <div class="panel">
+        <h2>טיפים לפוסט שמוכר</h2>
+        <ul class="check-list small">
+          <li>אור יום מהחלון, בלי פלאש</li>
+          <li>שורה ראשונה שמעוררת סקרנות — רק היא נראית בפיד</li>
+          <li>סיפור קטן: למי הכנת ולמה</li>
+          <li>תמיד לסיים במה לעשות עכשיו: "להזמנות..."</li>
+          <li>10–15 האשטגים רלוונטיים, כולל אזור</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <strong>מהמטבח לעסק משלי</strong> · תכנית של <a href="https://www.mirel-chocolate.co.il/">MIREL שוקולד וקונדיטוריית בוטיק</a>
+      <div class="small muted">המידע שתזיני נשמר רק בדפדפן שלך, במכשיר הזה. © <span data-year>2026</span></div>
+    </div>
+    <ul>
+      <li><a href="index.html">כל הכלים</a></li>
+      <li><a href="students.html">אזור תלמידות</a></li>
+      <li><a href="quiz.html">שאלון התאמה</a></li>
+      <li><a href="../">על הקורס</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="../assets/common.js"></script>
+<script src="../assets/js/captions.js"></script>
+</body>
+</html>

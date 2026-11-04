@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מחשבון מחירים | מהמטבח לעסק משלי</title>
+  <meta name="description" content="מחשבון מחירים לעוגות וקינוחים: עלות חומרי גלם, אריזה, שעות עבודה והוצאות — ומחיר מומלץ עם רווח.">
+  <meta name="theme-color" content="#fbf6f1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c98b7f'/%3E%3Ctext x='32' y='43' font-size='32' text-anchor='middle' fill='white' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">דילוג לתוכן</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="מהמטבח לעסק משלי — עמוד הבית">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-text"><strong>מהמטבח לעסק משלי</strong><span>by MIREL שוקולד וקונדיטוריית בוטיק</span></span>
+    </a>
+    <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="תפריט">☰</button>
+    <nav id="site-nav" class="site-nav" aria-label="ניווט ראשי">
+      <ul>
+        <li><a href="../">הקורס</a></li>
+        <li><a href="index.html" aria-current="page">כל הכלים</a></li>
+        <li><a href="students.html">אזור תלמידות</a></li>
+        <li><a href="quiz.html">שאלון: מוכנה לעסק?</a></li>
+        <li><a href="https://www.mirel-chocolate.co.il/">לאתר MIREL</a></li>
+        <li><a class="nav-cta" href="../#register">להרשמה לקורס</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="tool-hero">
+    <div class="wrap">
+      <span class="eyebrow no-print">כלי 1</span>
+      <h1>מחשבון מחירים</h1>
+      <p class="no-print">מזינות מתכון אחד — כל רכיב עם גודל האריזה, המחיר שלה וכמה השתמשת — ומוסיפות אריזה, קישוטים ושעות עבודה. המחשבון אומר לך כמה העוגה עולה לך באמת, ובכמה כדאי למכור אותה.</p>
+    </div>
+  </section>
+
+  <div class="wrap tool-layout">
+    <div>
+      <form id="recipe-form" class="no-print" autocomplete="off" onsubmit="return false">
+        <div class="panel">
+          <div class="field-row">
+            <div class="field" style="grid-column: span 2">
+              <label for="r-name">שם המתכון</label>
+              <input id="r-name" type="text" placeholder="למשל: עוגת שוקולד-פטל 24 ס״מ">
+            </div>
+            <div class="field">
+              <label for="r-servings">מספר מנות / פרוסות</label>
+              <input id="r-servings" type="number" min="1" step="1" inputmode="numeric" value="12">
+            </div>
+            <div class="field">
+              <label for="r-category">קטגוריה (לא חובה)</label>
+              <input id="r-category" type="text" placeholder="עוגות, קינוחים, מארזים...">
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>חומרי גלם</h2>
+            <button type="button" class="btn btn-sm btn-outline" id="add-ing">+ רכיב</button>
+          </div>
+          <p class="hint">דוגמה: חמאה — אריזה 200 גרם עולה 9 ₪, השתמשתי ב־150 גרם.</p>
+          <div class="rows" id="ing-rows"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>אריזה, קישוטים ותוספות</h2>
+            <button type="button" class="btn btn-sm btn-outline" id="add-extra">+ תוספת</button>
+          </div>
+          <div class="rows" id="extra-rows"></div>
+        </div>
+
+        <div class="panel">
+          <h2>עבודה, הוצאות ורווח</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="r-hours">שעות עבודה</label>
+              <input id="r-hours" type="number" min="0" step="0.25" inputmode="decimal" value="2">
+              <div class="hint">כולל הכנה, קישוט, ניקיון ואריזה</div>
+            </div>
+            <div class="field">
+              <label for="r-rate">שכר לשעה (₪)</label>
+              <input id="r-rate" type="number" min="0" step="1" inputmode="decimal" value="60">
+              <div class="hint">כמה שווה שעה שלך?</div>
+            </div>
+            <div class="field">
+              <label for="r-overhead">הוצאות נלוות (%)</label>
+              <input id="r-overhead" type="number" min="0" max="100" step="1" inputmode="decimal" value="10">
+              <div class="hint">חשמל, גז, פחת ציוד, נסיעות</div>
+            </div>
+            <div class="field">
+              <label for="r-margin">רווח רצוי (% מהמחיר)</label>
+              <input id="r-margin" type="number" min="0" max="90" step="1" inputmode="decimal" value="30">
+              <div class="hint">מומלץ 25%–40%</div>
+            </div>
+          </div>
+          <div class="field-row">
+            <label class="check"><input type="checkbox" id="r-vat"> להוסיף מע״מ (עוסק מורשה)</label>
+            <div class="field" id="vat-rate-wrap">
+              <label for="r-vat-rate">שיעור מע״מ (%)</label>
+              <input id="r-vat-rate" type="number" min="0" max="30" step="0.5" inputmode="decimal" value="18">
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Printable recipe sheet -->
+      <div class="print-only" id="print-sheet"></div>
+    </div>
+
+    <aside class="sticky-col">
+      <div class="panel" aria-live="polite">
+        <h2>התוצאה</h2>
+        <div class="summary" id="summary"></div>
+        <div class="summary-big">
+          <div class="label">מחיר מכירה מומלץ</div>
+          <div class="value" id="price-big">₪0</div>
+          <div class="sub" id="price-sub"></div>
+        </div>
+        <div id="calc-warn" class="warn-box hidden" style="margin-top:10px"></div>
+        <div class="btn-row no-print" style="margin-top:14px">
+          <button class="btn" id="save-btn" type="button">שמירת המתכון</button>
+          <button class="btn btn-ghost" id="new-btn" type="button">מתכון חדש</button>
+          <button class="btn btn-ghost" id="print-btn" type="button">הדפסה / PDF</button>
+        </div>
+      </div>
+
+      <div class="panel no-print">
+        <div class="panel-head">
+          <h2>המתכונים השמורים שלי</h2>
+        </div>
+        <ul class="list-plain" id="saved-list"></ul>
+        <div id="backup"></div>
+        <p class="hint">המתכונים השמורים זמינים גם בבונה התפריט וביומן ההזמנות.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <strong>מהמטבח לעסק משלי</strong> · תכנית של <a href="https://www.mirel-chocolate.co.il/">MIREL שוקולד וקונדיטוריית בוטיק</a>
+      <div class="small muted">המידע שתזיני נשמר רק בדפדפן שלך, במכשיר הזה. © <span data-year>2026</span></div>
+    </div>
+    <ul>
+      <li><a href="index.html">כל הכלים</a></li>
+      <li><a href="students.html">אזור תלמידות</a></li>
+      <li><a href="quiz.html">שאלון התאמה</a></li>
+      <li><a href="../">על הקורס</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="../assets/common.js"></script>
+<script src="../assets/js/pricing.js"></script>
+</body>
+</html>
