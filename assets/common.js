@@ -310,8 +310,73 @@
   const yearEl = document.querySelectorAll("[data-year]");
   yearEl.forEach((el) => (el.textContent = new Date().getFullYear()));
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initNav);
-  else initNav();
+  /* ---------- Motion: scroll reveal, header, progress bar, counters, back-to-top ---------- */
+  function initMotion() {
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const header = document.querySelector(".site-header");
+
+    // scroll progress + back-to-top
+    const bar = document.createElement("div");
+    bar.className = "scroll-progress"; bar.setAttribute("aria-hidden", "true");
+    document.body.appendChild(bar);
+    const top = document.createElement("button");
+    top.className = "to-top no-print"; top.type = "button"; top.setAttribute("aria-label", "חזרה למעלה"); top.textContent = "↑";
+    top.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
+    document.body.appendChild(top);
+    let ticking = false;
+    function onScroll() {
+      ticking = false;
+      const y = window.scrollY, h = document.documentElement.scrollHeight - window.innerHeight;
+      if (header) header.classList.toggle("scrolled", y > 10);
+      bar.style.transform = "scaleX(" + (h > 0 ? Math.min(1, y / h) : 0) + ")";
+      top.classList.toggle("show", y > 700);
+    }
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    onScroll();
+
+    if (reduce || !("IntersectionObserver" in window)) return;
+
+    // scroll reveal — added by JS only, so content is always visible without it
+    const groups = [".section-head", ".card", ".module", ".faq details", ".quote", ".compare > *", ".gallery figure", ".about > *", ".cta-box", ".quiz-teaser", ".tool-card", ".stats-strip .wrap > div", ".lesson", ".msg-card"];
+    const els = [];
+    groups.forEach((sel) => document.querySelectorAll(sel).forEach((el) => {
+      if (el.closest(".hero") || el.classList.contains("reveal")) return;
+      el.classList.add("reveal");
+      if (el.matches(".gallery figure, .cta-box")) el.classList.add("reveal-zoom");
+      // stagger siblings
+      const sibs = el.parentElement ? Array.from(el.parentElement.children).filter((c) => c.classList.contains("reveal")) : [];
+      el.style.setProperty("--d", Math.min(sibs.indexOf(el), 6) * 0.08 + "s");
+      els.push(el);
+    }));
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    }), { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    els.forEach((el) => io.observe(el));
+
+    // count-up numbers: <span data-count="15">15</span>
+    const cio = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      cio.unobserve(en.target);
+      const el = en.target, to = parseFloat(el.dataset.count), pre = el.dataset.prefix || "", suf = el.dataset.suffix || "";
+      const t0 = performance.now(), dur = 1400;
+      (function step(t) {
+        const k = Math.min(1, (t - t0) / dur), v = Math.round(to * (1 - Math.pow(1 - k, 3)));
+        el.textContent = pre + v.toLocaleString("he-IL") + suf;
+        if (k < 1) requestAnimationFrame(step);
+      })(t0);
+    }), { threshold: 0.6 });
+    document.querySelectorAll("[data-count]").forEach((el) => cio.observe(el));
+
+    // gentle parallax on hero photos
+    const hp = document.querySelector(".hero-photos");
+    if (hp && window.innerWidth > 900) {
+      window.addEventListener("scroll", () => { hp.style.translate = "0 " + Math.min(60, window.scrollY * 0.08) + "px"; }, { passive: true });
+    }
+  }
+
+  function initAll() { initNav(); initMotion(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initAll);
+  else initAll();
 
   window.Mirel = {
     KEYS, load, save, uid, money, num, esc, parseNum,
