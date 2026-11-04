@@ -374,6 +374,37 @@
     }
   }
 
+  /* ---------- Confetti (brand colors) — Mirel.confetti({ big: true }) ---------- */
+  function confetti(opts) {
+    opts = opts || {};
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const c = document.createElement("canvas");
+    c.className = "confetti-canvas"; c.setAttribute("aria-hidden", "true");
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    c.width = innerWidth * dpr; c.height = innerHeight * dpr;
+    document.body.appendChild(c);
+    const ctx = c.getContext("2d"); ctx.scale(dpr, dpr);
+    const colors = ["#dc6e71", "#f6b9ba", "#9c3539", "#301816", "#bb989b", "#fde6e6", "#d4a35a"];
+    const n = opts.big ? 160 : 70;
+    const ox = opts.x != null ? opts.x : innerWidth / 2, oy = opts.y != null ? opts.y : innerHeight * 0.35;
+    const parts = Array.from({ length: n }, () => {
+      const a = Math.random() * Math.PI * 2, sp = (opts.big ? 7 : 5) + Math.random() * 6;
+      return { x: ox, y: oy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 5, r: 3 + Math.random() * 5, c: colors[(Math.random() * colors.length) | 0], rot: Math.random() * 6, vr: (Math.random() - .5) * .3, round: Math.random() < .45 };
+    });
+    const t0 = performance.now();
+    (function frame(t) {
+      const el = t - t0;
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      parts.forEach((p) => {
+        p.vy += 0.22; p.vx *= 0.985; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        ctx.save(); ctx.globalAlpha = Math.max(0, 1 - el / 2600); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.fillStyle = p.c;
+        if (p.round) { ctx.beginPath(); ctx.arc(0, 0, p.r * .7, 0, Math.PI * 2); ctx.fill(); } else ctx.fillRect(-p.r, -p.r / 2.5, p.r * 2, p.r / 1.25);
+        ctx.restore();
+      });
+      if (el < 2700) requestAnimationFrame(frame); else c.remove();
+    })(t0);
+  }
+
   function initAll() { initNav(); initMotion(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initAll);
   else initAll();
@@ -382,6 +413,7 @@
     KEYS, load, save, uid, money, num, esc, parseNum,
     UNITS, toBase, unitOptions, fmtAmount, ingredientCost, calcRecipe, roundNice,
     toast, fileToDataURL, download,
+    confetti,
     getProfile, setProfile, copyText, waLink, mountBackup, exportKeys, importKeys, saveAsPNG,
     getRecipes: () => load(KEYS.recipes, []),
     setRecipes: (list) => save(KEYS.recipes, list),

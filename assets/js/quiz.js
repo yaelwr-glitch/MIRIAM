@@ -117,6 +117,7 @@
     st.leads = (st.leads || []).concat([lead]).slice(-5);
     save();
     renderDetails();
+    M.confetti({ big: true });
   }
 
   function renderDetails() {

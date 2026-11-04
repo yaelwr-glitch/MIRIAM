@@ -47,6 +47,7 @@
     const cert = $("cert"); const prev = cert.style.transform; cert.style.transform = "";
     await M.saveAsPNG(cert, "mirel-certificate.png");
     cert.style.transform = prev;
+    M.confetti({ big: true });
   });
   $("print-btn").addEventListener("click", () => window.print());
 

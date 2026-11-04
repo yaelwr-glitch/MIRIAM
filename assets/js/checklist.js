@@ -41,7 +41,16 @@
   $("cl-sections").addEventListener("change", (e) => {
     const id = e.target.dataset.id; if (!id) return;
     if (e.target.checked) st.done[id] = Date.now(); else delete st.done[id];
-    save(); render();
+    save();
+    if (e.target.checked) {
+      const r = e.target.getBoundingClientRect();
+      const sec = C.sections.find((x) => x.items.some((i) => i.id === id));
+      const all = allItems().every((i) => st.done[i.id]);
+      const secDone = sec && sec.items.every((i) => st.done[i.id]);
+      if (all || secDone) M.confetti({ big: all, x: r.left + r.width / 2, y: r.top });
+      if (all) M.toast("🎉 סיימת את כל הרשימה!"); else if (secDone) M.toast("✨ סיימת שלב שלם!");
+    }
+    render();
   });
 
   if (C.withDays) {

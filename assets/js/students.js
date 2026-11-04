@@ -56,8 +56,16 @@
   $("modules").addEventListener("change", (e) => {
     const id = e.target.dataset.lesson; if (!id) return;
     if (e.target.checked) st.done[id] = Date.now(); else delete st.done[id];
-    save(); render();
-    if (e.target.checked) M.toast("כל הכבוד! ✓");
+    save();
+    if (e.target.checked) {
+      const r = e.target.getBoundingClientRect();
+      const mod = COURSE.find((m) => m.lessons.some((l) => l.id === id));
+      const all = lessons().every((l) => st.done[l.id]);
+      const modDone = mod && mod.lessons.every((l) => st.done[l.id]);
+      M.confetti({ big: all || modDone, x: r.left + r.width / 2, y: r.top });
+      M.toast(all ? "🎓 סיימת את כל התכנית!" : modDone ? "🎉 סיימת את המודול!" : "כל הכבוד! ✓");
+    }
+    render();
   });
   $("modules").addEventListener("toggle", (e) => {
     const d = e.target.closest("[data-mod]"); if (d) { st.open[d.dataset.mod] = d.open; save(); }

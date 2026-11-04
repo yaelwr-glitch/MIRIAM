@@ -107,6 +107,31 @@
     </div>
   </section>
 
+  <!-- ===== LIVE MINI CALCULATOR ===== -->
+  <section class="section" id="taste">
+    <div class="wrap taste">
+      <div>
+        <span class="eyebrow">נסי עכשיו · 30 שניות</span>
+        <h2>כמה באמת <strong>שווה העוגה שלך?</strong></h2>
+        <p class="muted">רוב האופות הביתיות גובות פחות ממה שהעוגה עולה להן — בלי לדעת. הזיזי את הסמנים וגלי מה המחיר הנכון.</p>
+        <div class="slider-field"><div class="top"><label for="t-ing">חומרי גלם ואריזה</label><output id="o-ing" for="t-ing"></output></div><input type="range" id="t-ing" min="10" max="300" step="5" value="70"></div>
+        <div class="slider-field"><div class="top"><label for="t-hours">שעות עבודה (כולל קישוט וניקיון)</label><output id="o-hours" for="t-hours"></output></div><input type="range" id="t-hours" min="0.5" max="8" step="0.5" value="3"></div>
+        <div class="slider-field"><div class="top"><label for="t-now">כמה את גובה היום</label><output id="o-now" for="t-now"></output></div><input type="range" id="t-now" min="50" max="900" step="10" value="200"></div>
+      </div>
+      <div class="taste-result" aria-live="polite">
+        <div class="lbl">המחיר הנכון לעוגה הזו</div>
+        <div class="big" id="t-price">₪0</div>
+        <div class="bars">
+          <div class="bar-row"><span>היום</span><span class="track"><span class="fill now" id="b-now"></span></span><span class="v" id="v-now"></span></div>
+          <div class="bar-row"><span>נכון</span><span class="track"><span class="fill right" id="b-right"></span></span><span class="v" id="v-right"></span></div>
+        </div>
+        <div class="verdict" id="t-verdict"></div>
+        <a class="btn" href="tools/pricing.html">לחישוב מדויק במחשבון המלא ←</a>
+        <div class="tiny-note">החישוב כולל 60 ₪ לשעת עבודה, 10% הוצאות נלוות ו־30% רווח.</div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== MODULES ===== -->
   <section class="section" id="learn">
     <div class="wrap">
@@ -115,13 +140,16 @@
         <h2>שישה שלבים — מעוגה ראשונה בתשלום ועד עסק שעובד</h2>
         <p class="muted">כל שלב מסתיים במשימה מעשית בעסק האמיתי שלך — לא בתרגיל על הנייר.</p>
       </div>
-      <div class="grid grid-2">
-        <div class="card module"><span class="module-num">1</span><div><h3>תמחור נכון</h3><p>איך מחשבים עלות אמיתית — חומרי גלם, אריזה, שעות העבודה שלך והוצאות נלוות — וקובעים מחיר שמשאיר רווח בלי להבריח לקוחות.</p></div></div>
-        <div class="card module"><span class="module-num">2</span><div><h3>תפריט ומיתוג</h3><p>בוחרות את המוצרים שמשתלם לך למכור, נותנות לעסק שם וסגנון, ובונות תפריט מעוצב שגורם ללקוחות להגיד "אני רוצה את זה".</p></div></div>
-        <div class="card module"><span class="module-num">3</span><div><h3>הלקוחות הראשונות ורשתות חברתיות</h3><p>מאיפה מגיעות ההזמנות הראשונות, איך מצלמים עוגה בטלפון כך שתיראה מקצועית, ומה מעלים לאינסטגרם, לפייסבוק ולסטטוס בוואטסאפ.</p></div></div>
-        <div class="card module"><span class="module-num">4</span><div><h3>ניהול הזמנות</h3><p>מקבלות הזמנה, גובות מקדמה, מתכננות את השבוע ויודעות בדיוק מה לקנות — בלי שבת לחוצה ובלי לשכוח אף לקוחה.</p></div></div>
-        <div class="card module"><span class="module-num">5</span><div><h3>בטיחות מזון ורישוי — הבסיס</h3><p>מה חשוב לדעת על היגיינה, אחסון, אלרגנים ותוויות, ומה הצעדים הבסיסיים לפתיחת תיק עוסק ולהתנהלות מסודרת מול הרשויות.</p></div></div>
-        <div class="card module"><span class="module-num">6</span><div><h3>צמיחה</h3><p>מתי להעלות מחירים, איך מוכרים מארזים לחגים ולאירועים, איך מקבלות הזמנות חוזרות — ואיך גדלים בלי להישחק.</p></div></div>
+      <div class="journey" id="journey">
+        <span class="fill-line" aria-hidden="true"></span>
+        <div class="journey-cap"><span class="dot" aria-hidden="true">🏠</span>המטבח שלך — היום</div>
+        <div class="journey-item"><span class="dot">1</span><div class="card module"><div><h3>תמחור נכון</h3><p>איך מחשבים עלות אמיתית — חומרי גלם, אריזה, שעות העבודה שלך והוצאות נלוות — וקובעים מחיר שמשאיר רווח בלי להבריח לקוחות.</p></div></div></div>
+        <div class="journey-item alt"><span class="dot">2</span><div class="card module"><div><h3>תפריט ומיתוג</h3><p>בוחרות את המוצרים שמשתלם לך למכור, נותנות לעסק שם וסגנון, ובונות תפריט מעוצב שגורם ללקוחות להגיד "אני רוצה את זה".</p></div></div></div>
+        <div class="journey-item"><span class="dot">3</span><div class="card module"><div><h3>הלקוחות הראשונות ורשתות חברתיות</h3><p>מאיפה מגיעות ההזמנות הראשונות, איך מצלמים עוגה בטלפון כך שתיראה מקצועית, ומה מעלים לאינסטגרם, לפייסבוק ולסטטוס בוואטסאפ.</p></div></div></div>
+        <div class="journey-item alt"><span class="dot">4</span><div class="card module"><div><h3>ניהול הזמנות</h3><p>מקבלות הזמנה, גובות מקדמה, מתכננות את השבוע ויודעות בדיוק מה לקנות — בלי שבת לחוצה ובלי לשכוח אף לקוחה.</p></div></div></div>
+        <div class="journey-item"><span class="dot">5</span><div class="card module"><div><h3>בטיחות מזון ורישוי — הבסיס</h3><p>מה חשוב לדעת על היגיינה, אחסון, אלרגנים ותוויות, ומה הצעדים הבסיסיים לפתיחת תיק עוסק ולהתנהלות מסודרת מול הרשויות.</p></div></div></div>
+        <div class="journey-item alt"><span class="dot">6</span><div class="card module"><div><h3>צמיחה</h3><p>מתי להעלות מחירים, איך מוכרים מארזים לחגים ולאירועים, איך מקבלות הזמנות חוזרות — ואיך גדלים בלי להישחק.</p></div></div></div>
+        <div class="journey-cap end"><span class="dot" aria-hidden="true">★</span>העסק שלך — עם מחירים, תפריט, לקוחות וסדר</div>
       </div>
       <p class="small muted center" style="margin-top:18px">* החומר בנושא רישוי ובטיחות מזון הוא הכוונה כללית. לפני פתיחת העסק מומלץ לבדוק את הדרישות העדכניות מול משרד הבריאות, הרשות המקומית ורואה חשבון.</p>
     </div>
@@ -135,31 +163,18 @@
         <h2>4 כלים חכמים — ועוד 11 בונוס</h2>
         <p>לא רק שיעורים — כלים מוכנים לעבודה שתשתמשי בהם כל יום בעסק. הם עובדים מהטלפון, ואפשר לנסות אותם כבר עכשיו.</p>
       </div>
-      <div class="grid grid-4">
-        <a class="card" href="tools/pricing.html" style="text-decoration:none;color:inherit">
-          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h8"/></svg></div>
-          <h3>מחשבון מחירים</h3>
-          <p class="muted">מזינות מתכון — ומקבלות עלות מדויקת, מחיר מומלץ ומחיר למנה.</p>
-          <span class="pill">לנסות ←</span>
-        </a>
-        <a class="card" href="tools/menu.html" style="text-decoration:none;color:inherit">
-          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
-          <h3>בונה תפריט אישי</h3>
-          <p class="muted">תפריט מעוצב עם תמונות ומחירים — להורדה, להדפסה ולשליחה בוואטסאפ.</p>
-          <span class="pill">לנסות ←</span>
-        </a>
-        <a class="card" href="tools/orders.html" style="text-decoration:none;color:inherit">
-          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3M8 17h6"/></svg></div>
-          <h3>יומן הזמנות חכם</h3>
-          <p class="muted">כל ההזמנות ביומן אחד, מה מכינים בכל יום — ורשימת קניות שנבנית לבד.</p>
-          <span class="pill">לנסות ←</span>
-        </a>
-        <a class="card" href="tools/assistant.html" style="text-decoration:none;color:inherit">
-          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg></div>
-          <h3>עוזרת אפייה עם AI</h3>
-          <p class="muted">משהו לא הצליח? מצלמות ומתארות — ומקבלות הסבר מה קרה ואיך מתקנים.</p>
-          <span class="pill">לנסות ←</span>
-        </a>
+      <div class="showcase" id="showcase">
+        <div class="phone-wrap">
+          <div class="phone"><div class="screen"><img src="assets/img/screens/pricing.jpg" alt="צילום מסך: מחשבון מחירים" loading="lazy" width="560" height="1134" class="on"><img src="assets/img/screens/menu.jpg" alt="צילום מסך: בונה תפריט אישי" loading="lazy" width="560" height="1134"><img src="assets/img/screens/orders.jpg" alt="צילום מסך: יומן הזמנות חכם" loading="lazy" width="560" height="1134"><img src="assets/img/screens/quote.jpg" alt="צילום מסך: הצעת מחיר מעוצבת" loading="lazy" width="560" height="1134"><img src="assets/img/screens/assistant.jpg" alt="צילום מסך: עוזרת אפייה" loading="lazy" width="560" height="1134"></div></div>
+          <span class="float-sphere" aria-hidden="true"></span><span class="float-sphere s2" aria-hidden="true"></span>
+        </div>
+        <ul class="tool-tabs" role="tablist" aria-label="הכלים">
+          <li><div class="tool-tab" role="tab" tabindex="0" data-screen="0" aria-selected="true"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M8 15h2M12 15h2M8 18h8"/></svg></span><span><h3>מחשבון מחירים</h3><p>מזינות מתכון — ומקבלות עלות מדויקת, מחיר מומלץ ומחיר למנה.</p><a class="go" href="tools/pricing.html">לנסות עכשיו ←</a></span><span class="timer" aria-hidden="true"></span></div></li>
+          <li><div class="tool-tab" role="tab" tabindex="0" data-screen="1" aria-selected="false"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span><span><h3>בונה תפריט אישי</h3><p>תפריט מעוצב עם תמונות ומחירים — להורדה, להדפסה ולוואטסאפ.</p><a class="go" href="tools/menu.html">לנסות עכשיו ←</a></span><span class="timer" aria-hidden="true"></span></div></li>
+          <li><div class="tool-tab" role="tab" tabindex="0" data-screen="2" aria-selected="false"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3M8 17h6"/></svg></span><span><h3>יומן הזמנות חכם</h3><p>מה מכינים בכל יום, מי שילמה מקדמה — ורשימת קניות שנבנית לבד.</p><a class="go" href="tools/orders.html">לנסות עכשיו ←</a></span><span class="timer" aria-hidden="true"></span></div></li>
+          <li><div class="tool-tab" role="tab" tabindex="0" data-screen="3" aria-selected="false"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg></span><span><h3>הצעת מחיר מעוצבת</h3><p>הצעה עם לוגו, מקדמה ותנאים — שגורמת ללקוחה להגיד "כן".</p><a class="go" href="tools/quote.html">לנסות עכשיו ←</a></span><span class="timer" aria-hidden="true"></span></div></li>
+          <li><div class="tool-tab" role="tab" tabindex="0" data-screen="4" aria-selected="false"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg></span><span><h3>עוזרת אפייה</h3><p>משהו לא הצליח? מתארות ומקבלות הסבר מה קרה ואיך מתקנים.</p><a class="go" href="tools/assistant.html">לנסות עכשיו ←</a></span><span class="timer" aria-hidden="true"></span></div></li>
+        </ul>
       </div>
       <h3 class="center" style="margin:40px 0 16px">ובנוסף — ארגז כלים מלא לעסק</h3>
       <div class="grid grid-3">
@@ -336,5 +351,6 @@
 </footer>
 
 <script src="assets/common.js"></script>
+<script src="assets/js/landing.js"></script>
 </body>
 </html>

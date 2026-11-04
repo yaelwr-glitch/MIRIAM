@@ -572,3 +572,85 @@ details.panel > summary { list-style: none; }
   .reveal, .hero .anim-in > *, .hero-photos { opacity: 1 !important; transform: none !important; }
   .ribbon-track { animation: none !important; }
 }
+
+/* =========================================================
+   "Wow" sections (v3)
+   ========================================================= */
+
+/* --- Live mini price calculator on the landing page --- */
+.taste { display: grid; gap: 26px; align-items: center; }
+@media (min-width: 900px) { .taste { grid-template-columns: 1fr 1fr; gap: 48px; } }
+.slider-field { margin-bottom: 18px; }
+.slider-field .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.slider-field output { font-family: var(--font-logo); font-size: 1.5rem; color: var(--rose-dark); font-weight: 300; }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 99px; background: linear-gradient(to left, var(--rose) var(--p, 50%), var(--line) var(--p, 50%)); outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fde6e6 0 12%, #ec9a9c 45%, var(--rose) 80%); box-shadow: 0 3px 10px rgba(220,110,113,.5); cursor: grab; border: 2px solid #fff; }
+input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--rose); border: 2px solid #fff; box-shadow: 0 3px 10px rgba(220,110,113,.5); cursor: grab; }
+input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--rose-dark); outline-offset: 2px; }
+.taste-result { background: var(--choc-deep); color: #f3e6e3; border-radius: var(--radius-lg); padding: 28px 22px; text-align: center; position: relative; overflow: hidden; }
+.taste-result::before { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(220,110,113,.35), transparent 70%); top: -120px; inset-inline-end: -80px; }
+.taste-result .lbl { color: #d9c4c0; font-size: .95rem; }
+.taste-result .big { font-family: var(--font-logo); font-weight: 300; font-size: clamp(3.4rem, 12vw, 5rem); line-height: 1; color: #fff; margin: 6px 0 14px; }
+.bars { display: grid; gap: 10px; margin: 8px 0 16px; text-align: start; }
+.bar-row { display: grid; grid-template-columns: 74px 1fr 70px; gap: 8px; align-items: center; font-size: .9rem; }
+.bar-row .track { height: 12px; background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden; }
+.bar-row .fill { display: block; height: 100%; border-radius: 99px; transition: width .6s cubic-bezier(.2,.7,.2,1); }
+.bar-row .fill.now { background: #8a6d68; } .bar-row .fill.right { background: linear-gradient(90deg, var(--rose), #f6b9ba); }
+.bar-row .v { text-align: end; font-weight: 600; }
+.verdict { background: rgba(255,255,255,.07); border-radius: 12px; padding: 12px 14px; font-size: 1rem; line-height: 1.55; min-height: 74px; }
+.verdict strong { color: #f6b9ba; }
+.taste-result .btn { margin-top: 16px; background: var(--rose); border-color: var(--rose); }
+.taste-result .btn:hover { background: #fff; color: var(--choc); border-color: #fff; }
+.tiny-note { font-size: .78rem; color: #bfa9a5; margin-top: 10px; }
+
+/* --- Phone showcase of the tools --- */
+.showcase { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 900px) { .showcase { grid-template-columns: 1fr 1fr; gap: 56px; } }
+.phone { position: relative; width: min(290px, 78vw); aspect-ratio: 9 / 18.6; margin: 0 auto; border-radius: 44px; background: #1d1210; padding: 12px; box-shadow: 0 30px 60px rgba(48,24,22,.28), inset 0 0 0 2px #3a2723; animation: float 7s ease-in-out infinite; }
+.phone::before { content: ""; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 84px; height: 22px; border-radius: 20px; background: #1d1210; z-index: 3; }
+.phone .screen { position: relative; width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #fff; }
+.phone .screen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transform: scale(1.04); transition: opacity .7s, transform 1.2s; }
+.phone .screen img.on { opacity: 1; transform: none; }
+.phone-wrap { position: relative; padding: 10px 0 20px; }
+.phone-wrap .float-sphere { width: 64px; height: 64px; top: 4%; inset-inline-start: 8%; }
+.phone-wrap .float-sphere.s2 { width: 26px; height: 26px; top: auto; bottom: 12%; inset-inline-start: auto; inset-inline-end: 10%; animation-delay: -3s; }
+.tool-tabs { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.tool-tab { display: flex; gap: 14px; align-items: flex-start; width: 100%; text-align: start; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; cursor: pointer; font: inherit; color: inherit; transition: border-color .3s, box-shadow .3s, transform .3s; position: relative; overflow: hidden; }
+.tool-tab .card-icon { width: 44px; height: 44px; margin: 0; flex: 0 0 auto; transition: background .3s, color .3s; }
+.tool-tab h3 { margin: 0 0 2px; font-size: 1.1rem; }
+.tool-tab p { margin: 0; color: var(--muted); font-size: .93rem; }
+.tool-tab .go { font-size: .85rem; color: var(--rose-dark); font-weight: 600; display: none; margin-top: 6px; text-decoration: none; }
+.tool-tab[aria-selected="true"] { border-color: var(--rose); box-shadow: var(--shadow); transform: translateX(-4px); }
+[dir="rtl"] .tool-tab[aria-selected="true"] { transform: translateX(4px); }
+.tool-tab[aria-selected="true"] .card-icon { background: var(--rose); color: #fff; }
+.tool-tab[aria-selected="true"] .go { display: inline-block; }
+.tool-tab .timer { position: absolute; bottom: 0; inset-inline-start: 0; height: 3px; width: 0; background: var(--rose); }
+.tool-tab[aria-selected="true"] .timer { animation: timer var(--dur, 4s) linear forwards; }
+.showcase.paused .tool-tab .timer { animation-play-state: paused; }
+@keyframes timer { to { width: 100%; } }
+
+/* --- Course journey (animated path) --- */
+.journey { position: relative; max-width: 900px; margin: 0 auto; padding: 10px 0; }
+.journey::before, .journey .fill-line { content: ""; position: absolute; top: 0; bottom: 0; inset-inline-start: 21px; width: 3px; border-radius: 3px; background: var(--line); }
+.journey .fill-line { background: linear-gradient(180deg, var(--rose), var(--rose-dark)); bottom: auto; height: 0; transition: height .15s linear; z-index: 1; }
+.journey-item { position: relative; padding-inline-start: 62px; margin-bottom: 18px; }
+.journey-item .dot { position: absolute; inset-inline-start: 0; top: 16px; width: 45px; height: 45px; border-radius: 50%; background: #fff; border: 2px solid var(--line); display: grid; place-items: center; font-family: var(--font-logo); font-size: 1.25rem; color: var(--muted); z-index: 2; transition: all .5s cubic-bezier(.2,.7,.2,1); }
+.journey-item.lit .dot { background: radial-gradient(circle at 35% 30%, #fde6e6 0 10%, #ec9a9c 45%, var(--rose) 85%); border-color: #fff; color: #fff; box-shadow: 0 6px 16px rgba(220,110,113,.45); transform: scale(1.08); }
+.journey-item .card { margin: 0; }
+.journey-item .card .module-num { display: none; }
+.journey-cap { position: relative; padding-inline-start: 62px; margin: 0 0 18px; font-weight: 600; color: var(--rose-dark); }
+.journey-cap .dot { position: absolute; inset-inline-start: 9px; top: 0; width: 27px; height: 27px; border-radius: 50%; background: var(--choc); z-index: 2; display: grid; place-items: center; color: #fff; font-size: .85rem; }
+.journey-cap.end .dot { background: var(--rose); }
+@media (min-width: 860px) {
+  .journey::before, .journey .fill-line { inset-inline-start: calc(50% - 1.5px); }
+  .journey-item { width: 50%; padding-inline-start: 0; padding-inline-end: 50px; }
+  .journey-item.alt { margin-inline-start: 50%; padding-inline-end: 0; padding-inline-start: 50px; }
+  .journey-item .dot { inset-inline-start: auto; inset-inline-end: -22.5px; }
+  .journey-item.alt .dot { inset-inline-end: auto; inset-inline-start: -22.5px; }
+  .journey-item { margin-bottom: -10px; }
+  .journey-cap { text-align: center; padding: 0; }
+  .journey-cap .dot { position: static; margin: 0 auto 6px; }
+}
+
+/* --- Confetti canvas --- */
+.confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 300; }

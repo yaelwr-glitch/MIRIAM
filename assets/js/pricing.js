@@ -193,6 +193,7 @@
     if (M.setRecipes(list)) {
       editingId = rec.id;
       M.toast("המתכון נשמר ✓");
+      if (M.getRecipes().length === 1) M.confetti();
       renderSaved();
       update();
     }

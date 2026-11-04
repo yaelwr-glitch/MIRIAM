@@ -138,7 +138,11 @@
     if (!b) return;
     const o = orders.find((x) => x.id === (b.dataset.done || b.dataset.edit || b.dataset.rm));
     if (!o) return;
-    if (b.dataset.done) { o.done = !o.done; persist(); renderAll(); }
+    if (b.dataset.done) {
+      o.done = !o.done; persist();
+      if (o.done) { const r = b.getBoundingClientRect(); M.confetti({ x: r.left + r.width / 2, y: r.top }); M.toast("עוד הזמנה יצאה לדרך 🎉"); }
+      renderAll();
+    }
     else if (b.dataset.edit) editOrder(o);
     else if (b.dataset.rm && confirm(`למחוק את ההזמנה של ${o.customer}?`)) { orders = orders.filter((x) => x !== o); persist(); renderAll(); }
   }
