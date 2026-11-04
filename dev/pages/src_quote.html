@@ -1,0 +1,112 @@
+{{HEAD title="מחולל הצעת מחיר | מהמטבח לעסק משלי" desc="הצעת מחיר מעוצבת ללקוחה — עם הלוגו שלך, פריטים, מקדמה ותנאים. להורדה כ־PDF או לשליחה בוואטסאפ."}}
+<style>
+  .q-sheet { background: #fff; color: var(--choc); border-radius: 18px; padding: 28px 22px; box-shadow: var(--shadow); max-width: 720px; margin: 0 auto; position: relative; overflow: hidden; }
+  .q-sheet::before { content: ""; position: absolute; top: 0; inset-inline: 0; height: 8px; background: linear-gradient(90deg, var(--blush), var(--rose), var(--choc-2)); }
+  .q-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 14px; }
+  .q-brand { display: flex; gap: 12px; align-items: center; }
+  .q-brand img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--blush); }
+  .q-brand h2 { margin: 0; font-size: 1.5rem; }
+  .q-meta { text-align: end; font-size: .9rem; }
+  .q-meta .q-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--rose-dark); line-height: 1; margin-bottom: 4px; }
+  .q-to { background: var(--cream); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; font-size: .95rem; }
+  .q-sheet table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  .q-sheet th { background: var(--choc); color: #fff; font-weight: 500; padding: 8px; text-align: start; }
+  .q-sheet th:first-child { border-start-start-radius: 10px; border-end-start-radius: 10px; }
+  .q-sheet th:last-child { border-start-end-radius: 10px; border-end-end-radius: 10px; }
+  .q-sheet td { padding: 8px; border-bottom: 1px solid var(--line); }
+  .q-sheet .num { text-align: end; white-space: nowrap; }
+  .q-totals { margin-top: 12px; margin-inline-start: auto; max-width: 300px; }
+  .q-totals div { display: flex; justify-content: space-between; padding: 4px 0; }
+  .q-totals .grand { font-family: var(--font-display); font-size: 1.4rem; color: var(--rose-dark); border-top: 2px solid var(--choc); margin-top: 4px; padding-top: 8px; }
+  .q-terms { margin-top: 18px; font-size: .85rem; color: var(--choc-2); white-space: pre-wrap; border-top: 1px dashed var(--line); padding-top: 12px; }
+  .q-sign { margin-top: 18px; display: flex; justify-content: space-between; gap: 20px; font-size: .85rem; flex-wrap: wrap; }
+  .q-sign span { border-top: 1px solid var(--choc-2); padding-top: 4px; min-width: 140px; text-align: center; }
+  .qi-row { display: grid; grid-template-columns: 2fr .8fr 1fr auto; gap: 8px; align-items: end; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--cream); }
+  @media (max-width: 520px) { .qi-row { grid-template-columns: 1fr 1fr auto; } .qi-row .qi-d { grid-column: 1 / -1; } }
+  .qi-row label { font-size: .78rem; color: var(--muted); margin-bottom: 2px; }
+  .qi-row input { min-height: 40px; background: #fff; }
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    .q-sheet { box-shadow: none; max-width: 100%; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tool-hero { display: none; }
+  }
+</style>
+</head>
+<body>
+{{HEADER}}
+<main id="main">
+  <section class="tool-hero no-print">
+    <div class="wrap">
+      <span class="eyebrow">כלי 7</span>
+      <h1>מחולל הצעת מחיר</h1>
+      <p>הצעת מחיר מסודרת ומעוצבת משדרת מקצועיות — ומקלה על הלקוחה להגיד "כן". ממלאות פריטים, מקדמה ותנאים, ומורידות PDF או שולחות בוואטסאפ.</p>
+    </div>
+  </section>
+
+  <div class="wrap tool-layout">
+    <div class="no-print">
+      <div class="panel">
+        <div class="panel-head"><h2>העסק שלי</h2><a class="small" href="menu.html">עריכת לוגו ופרטים מלאים ←</a></div>
+        <div class="field-row">
+          <div class="field"><label for="p-business">שם העסק</label><input id="p-business" type="text"></div>
+          <div class="field"><label for="p-phone">טלפון</label><input id="p-phone" type="tel" inputmode="tel"></div>
+        </div>
+        <div class="field"><label for="p-logo">לוגו</label><input id="p-logo" type="file" accept="image/*"></div>
+      </div>
+
+      <div class="panel">
+        <h2>הלקוחה והאירוע</h2>
+        <div class="field-row">
+          <div class="field"><label for="q-customer">שם הלקוחה</label><input id="q-customer" type="text"></div>
+          <div class="field"><label for="q-phone">טלפון הלקוחה</label><input id="q-phone" type="tel" inputmode="tel"></div>
+          <div class="field"><label for="q-event">אירוע / נושא</label><input id="q-event" type="text" placeholder="יום הולדת 40, בר קינוחים..."></div>
+          <div class="field"><label for="q-date">תאריך האירוע</label><input id="q-date" type="date"></div>
+          <div class="field"><label for="q-number">מספר הצעה</label><input id="q-number" type="text"></div>
+          <div class="field"><label for="q-valid">בתוקף (ימים)</label><input id="q-valid" type="number" min="1" step="1" inputmode="numeric"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>פריטים</h2><button type="button" class="btn btn-sm btn-outline" id="add-item">+ פריט</button></div>
+        <div class="field">
+          <label for="from-recipe">הוספה ממתכון שמור</label>
+          <div class="btn-row"><select id="from-recipe" style="flex:1;min-width:160px"></select><button type="button" class="btn btn-sm" id="add-recipe">הוספה</button></div>
+        </div>
+        <div class="rows" id="items"></div>
+      </div>
+
+      <div class="panel">
+        <h2>תשלום ותנאים</h2>
+        <div class="field-row">
+          <div class="field"><label for="q-discount">הנחה ₪</label><input id="q-discount" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="field"><label for="q-deposit">מקדמה (%)</label><input id="q-deposit" type="number" min="0" max="100" step="5" inputmode="decimal"></div>
+        </div>
+        <label class="check" style="margin-bottom:12px"><input type="checkbox" id="q-vat"> המחירים לא כוללים מע״מ — להוסיף 18%</label>
+        <div class="field"><label for="q-terms">תנאים</label><textarea id="q-terms" rows="6"></textarea></div>
+        <div class="field"><label for="q-notes">הערה אישית ללקוחה</label><textarea id="q-notes" rows="2"></textarea></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>הצעות שמורות</h2><button type="button" class="btn btn-sm btn-ghost" id="new-quote">הצעה חדשה</button></div>
+        <ul class="list-plain" id="saved"></ul>
+      </div>
+      <div id="backup"></div>
+    </div>
+
+    <aside class="sticky-col">
+      <div class="q-sheet" id="sheet"></div>
+      <div class="btn-row no-print" style="margin-top:14px;justify-content:center">
+        <button class="btn" id="save-btn" type="button">שמירה</button>
+        <button class="btn btn-ghost" id="pdf-btn" type="button">הורדה כ־PDF</button>
+        <button class="btn btn-ghost" id="png-btn" type="button">תמונה</button>
+        <a class="btn btn-ghost" id="wa-btn" href="#" target="_blank" rel="noopener">וואטסאפ ללקוחה</a>
+      </div>
+      <p class="hint center no-print">"הורדה כ־PDF" פותחת חלון הדפסה — בחרי "שמירה כ־PDF". בטלפון: שיתוף ← הדפסה ← שמירה.</p>
+    </aside>
+  </div>
+</main>
+{{FOOTER}}
+<script src="../assets/common.js"></script>
+<script src="../assets/js/quote.js"></script>
+</body>
+</html>

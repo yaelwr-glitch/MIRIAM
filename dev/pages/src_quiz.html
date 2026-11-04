@@ -1,0 +1,32 @@
+{{HEAD title="שאלון: האם אני מוכנה לפתוח עסק קינוחים? | MIREL" desc="10 שאלות קצרות — ותגלי כמה את מוכנה להפוך את האפייה לעסק, ומה הצעד הבא שלך."}}
+<style>
+  .quiz-wrap { max-width: 720px; margin: 0 auto; padding-bottom: 56px; }
+  .q-opts { display: grid; gap: 10px; margin-top: 14px; }
+  .q-opt { text-align: start; border: 1.5px solid var(--line); background: #fff; border-radius: 14px; padding: 14px 16px; font: 500 1rem var(--font-body); color: var(--choc); cursor: pointer; min-height: 52px; }
+  .q-opt:hover { border-color: var(--rose); background: #fdf6f4; }
+  .q-opt[aria-pressed="true"] { border-color: var(--rose-dark); background: var(--blush); }
+  .q-num { color: var(--rose-dark); font-weight: 600; font-size: .9rem; }
+  .result-score { font-family: var(--font-display); font-size: 3.2rem; color: var(--rose-dark); line-height: 1; }
+</style>
+</head>
+<body>
+{{HEADER}}
+<main id="main">
+  <section class="tool-hero">
+    <div class="wrap quiz-wrap" style="padding-bottom:0">
+      <span class="eyebrow">שאלון קצר · 2 דקות</span>
+      <h1>האם אני מוכנה לפתוח עסק קינוחים?</h1>
+      <p>10 שאלות כנות — ותקבלי תמונת מצב אישית: איפה את חזקה, מה עוד חסר, ומה הצעד הבא שלך.</p>
+    </div>
+  </section>
+
+  <div class="wrap quiz-wrap">
+    <div class="panel" id="quiz-box" aria-live="polite"></div>
+  </div>
+</main>
+{{FOOTER}}
+<script src="config.js"></script>
+<script src="../assets/common.js"></script>
+<script src="../assets/js/quiz.js"></script>
+</body>
+</html>

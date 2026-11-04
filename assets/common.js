@@ -3,6 +3,137 @@
   "use strict";
   const ASSETS_BASE = document.currentScript ? new URL(".", document.currentScript.src).href : "";
 
+  /* =========================================================
+     i18n — Hebrew is the source language. English / French come from
+     assets/i18n/<lang>.js (loaded by the small snippet in each page's <head>),
+     keyed by the Hebrew text. Static page text is translated by walking the
+     DOM; text that the tools render later is caught by a MutationObserver.
+     Keys may contain {0}, {1}… placeholders for numbers/names.
+     ========================================================= */
+  const LANG = ["en", "fr"].includes(window.MIREL_LANG) ? window.MIREL_LANG : "he";
+  const LOCALE = { he: "he-IL", en: "en-GB", fr: "fr-FR" }[LANG];
+  const HEB = /[֐-׿]/;
+  const normWS = (x) => String(x).replace(/\s+/g, " ").trim();
+  const EXACT = new Map();
+  const PATTERNS = [];
+  if (LANG !== "he" && window.MIREL_I18N) {
+    Object.keys(window.MIREL_I18N).forEach((k) => {
+      const v = window.MIREL_I18N[k];
+      if (/\{\d\}/.test(k)) {
+        const re = new RegExp("^" + k.split(/\{\d\}/).map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("([\\s\\S]*?)") + "$");
+        const order = (k.match(/\{\d\}/g) || []).map((m) => +m[1]);
+        PATTERNS.push({ re, v, order, len: k.replace(/\{\d\}/g, "").length });
+      } else EXACT.set(k, v);
+    });
+    PATTERNS.sort((a, b) => b.len - a.len);
+  }
+  function trCore(n, depth) {
+    if (EXACT.has(n)) return EXACT.get(n);
+    if (depth > 3) return null;
+    for (const p of PATTERNS) {
+      const m = n.match(p.re);
+      if (!m) continue;
+      const caps = {};
+      p.order.forEach((idx, i) => { caps[idx] = m[i + 1]; });
+      return p.v.replace(/\{(\d)\}/g, (_, i) => {
+        const c = caps[+i] == null ? "" : caps[+i];
+        if (!HEB.test(c)) return c;
+        const lead = c.match(/^\s*/)[0], trail = c.match(/\s*$/)[0];
+        const t = trCore(normWS(c), depth + 1);
+        return lead + (t == null ? c.trim() : t) + trail;
+      });
+    }
+    return null;
+  }
+  /* translate a finished string (returns it unchanged when unknown) */
+  function tr(text) {
+    if (LANG === "he" || text == null || !HEB.test(text)) return text;
+    const n = normWS(text);
+    const t = trCore(n, 0);
+    return t == null ? text : t;
+  }
+  /* translate a multi-line text (WhatsApp / clipboard): whole text first, then line by line */
+  function trBlock(text) {
+    if (LANG === "he" || !HEB.test(text)) return text;
+    const whole = trCore(normWS(text), 0);
+    if (whole != null) return whole;
+    return String(text).split("\n").map((l) => (HEB.test(l) ? tr(l) : l)).join("\n");
+  }
+  /* t("key {0}", a, b) — look up a key and fill placeholders */
+  function t(key, ...args) {
+    let v = LANG === "he" ? key : (EXACT.get(normWS(key)) || key);
+    return String(v).replace(/\{(\d)\}/g, (m, i) => (args[+i] != null ? args[+i] : m));
+  }
+  const SKIP_TAGS = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1 };
+  const ATTRS = ["placeholder", "aria-label", "title", "alt"];
+  function trTextNode(node) {
+    const v = node.nodeValue;
+    if (!v || !HEB.test(v)) return;
+    const out = tr(v);
+    if (out !== v) {
+      const lead = v.match(/^\s*/)[0], trail = v.match(/\s*$/)[0];
+      node.nodeValue = lead + out + trail;
+    }
+  }
+  function trElementAttrs(el) {
+    for (const a of ATTRS) {
+      const v = el.getAttribute && el.getAttribute(a);
+      if (v && HEB.test(v)) { const out = tr(v); if (out !== v) el.setAttribute(a, out); }
+    }
+  }
+  function translateTree(root) {
+    if (LANG === "he" || !root) return;
+    if (root.nodeType === 3) { if (!(root.parentNode && (SKIP_TAGS[root.parentNode.nodeName] || root.parentNode.nodeName === "TEXTAREA"))) trTextNode(root); return; }
+    if (root.nodeType !== 1 || SKIP_TAGS[root.nodeName] || root.closest && root.closest("[data-no-i18n]")) return;
+    trElementAttrs(root);
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => (n.nodeType === 1 && (SKIP_TAGS[n.nodeName] || n.hasAttribute("data-no-i18n")) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+    });
+    let n;
+    while ((n = w.nextNode())) { if (n.nodeType === 3) { if (n.parentNode.nodeName !== "TEXTAREA") trTextNode(n); } else trElementAttrs(n); }
+  }
+  if (LANG !== "he") {
+    document.title = tr(document.title);
+    const md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute("content", tr(md.getAttribute("content")));
+    translateTree(document.body);
+    new MutationObserver((muts) => {
+      for (const m of muts) {
+        if (m.type === "characterData") trTextNode(m.target);
+        else m.addedNodes.forEach(translateTree);
+      }
+    }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    const nativeConfirm = window.confirm.bind(window);
+    window.confirm = (msg) => nativeConfirm(tr(msg));
+    document.documentElement.classList.remove("i18n-wait");
+  }
+
+  /* language switcher in the header: עב · EN · FR */
+  function initLangSwitch() {
+    const wrap = document.querySelector(".site-header .wrap");
+    if (!wrap || wrap.querySelector(".lang-switch")) return;
+    const box = document.createElement("div");
+    box.className = "lang-switch no-print";
+    box.setAttribute("role", "group");
+    box.setAttribute("aria-label", "Language / שפה / Langue");
+    box.setAttribute("data-no-i18n", "");
+    [["he", "עב", "עברית"], ["en", "EN", "English"], ["fr", "FR", "Français"]].forEach(([code, label, full]) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = label; b.lang = code; b.title = full;
+      b.setAttribute("aria-label", full);
+      b.setAttribute("aria-pressed", String(code === LANG));
+      b.addEventListener("click", () => {
+        try { localStorage.setItem("mirel_lang", code); } catch (e) { /* ignore */ }
+        const u = new URL(location.href);
+        u.searchParams.set("lang", code);
+        location.href = u.toString();
+      });
+      box.appendChild(b);
+    });
+    const toggle = wrap.querySelector(".nav-toggle");
+    wrap.insertBefore(box, toggle || null);
+  }
+
   const KEYS = {
     recipes: "mirel_recipes_v1",
     orders: "mirel_orders_v1",
@@ -47,14 +178,14 @@
   }
 
   /* ---------- Formatting ---------- */
-  const nf = new Intl.NumberFormat("he-IL", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  const nf = new Intl.NumberFormat(LOCALE, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
   function money(n) {
     if (!isFinite(n)) n = 0;
     return "₪" + nf.format(Math.round(n * 100) / 100);
   }
   function num(n, digits) {
     if (!isFinite(n)) n = 0;
-    return new Intl.NumberFormat("he-IL", { maximumFractionDigits: digits == null ? 1 : digits }).format(n);
+    return new Intl.NumberFormat(LOCALE, { maximumFractionDigits: digits == null ? 1 : digits }).format(n);
   }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -201,6 +332,7 @@
 
   /* ---------- Clipboard & sharing ---------- */
   async function copyText(text) {
+    text = trBlock(text);
     try {
       await navigator.clipboard.writeText(text);
     } catch (e) {
@@ -215,7 +347,7 @@
   function waLink(text, phone) {
     let p = String(phone || "").replace(/[^\d]/g, "");
     if (p.startsWith("0")) p = "972" + p.slice(1);
-    return "https://wa.me/" + (p || "") + "?text=" + encodeURIComponent(text);
+    return "https://wa.me/" + (p || "") + "?text=" + encodeURIComponent(trBlock(text));
   }
 
   /* ---------- Backup / restore widget ----------
@@ -361,7 +493,7 @@
       const t0 = performance.now(), dur = 1400;
       (function step(t) {
         const k = Math.min(1, (t - t0) / dur), v = Math.round(to * (1 - Math.pow(1 - k, 3)));
-        el.textContent = pre + v.toLocaleString("he-IL") + suf;
+        el.textContent = pre + v.toLocaleString(LOCALE) + suf;
         if (k < 1) requestAnimationFrame(step);
       })(t0);
     }), { threshold: 0.6 });
@@ -405,11 +537,12 @@
     })(t0);
   }
 
-  function initAll() { initNav(); initMotion(); }
+  function initAll() { initLangSwitch(); initNav(); initMotion(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initAll);
   else initAll();
 
   window.Mirel = {
+    lang: LANG, locale: LOCALE, dir: LANG === "he" ? "rtl" : "ltr", t, tr, trBlock, translateTree,
     KEYS, load, save, uid, money, num, esc, parseNum,
     UNITS, toBase, unitOptions, fmtAmount, ingredientCost, calcRecipe, roundNice,
     toast, fileToDataURL, download,

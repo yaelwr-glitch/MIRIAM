@@ -133,7 +133,7 @@
           return `<div><div class="progress-label"><span>${AREAS[k]}</span><span>${pct}%</span></div><div class="progress"><span style="width:${pct}%"></span></div></div>`;
         }).join("")}</div>
         <h3 style="margin-top:18px">💪 החוזקות שלך</h3>
-        <p>${strong.map((k) => AREAS[k]).join(" ו")} — על זה בונים.</p>
+        <p>${strong.map((k) => AREAS[k]).join(" · ")} — על זה בונים.</p>
         <h3>🎯 מה כדאי לחזק עכשיו</h3>
         ${weak.map((k) => `<div class="msg-card" style="margin-bottom:10px"><strong>${AREAS[k]}</strong><p style="margin:4px 0 0">${TIPS[k]}</p></div>`).join("")}
         <div class="cta-box" style="margin-top:18px">

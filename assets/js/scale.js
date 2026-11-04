@@ -33,7 +33,10 @@
   const guessDensity = (name) => {
     const n = name || "";
     let best = null;
-    DENSITY.forEach((d) => d.k.forEach((k) => { if (n.includes(k) && (!best || k.length > best.len)) best = { d, len: k.length }; }));
+    const low = n.toLowerCase();
+    DENSITY.forEach((d) => d.k.forEach((k) => {
+      [k, M.t(k).toLowerCase()].forEach((kk) => { if (kk && low.includes(kk) && (!best || kk.length > best.len)) best = { d, len: kk.length }; });
+    }));
     return best ? best.d : null;
   };
 
@@ -44,8 +47,8 @@
     to: { shape: "round", a: 18, b: 18, h: 7 },
     useH: false, svFrom: 10, svTo: 40, factor: 1.5, out: "same", title: "",
     rows: [
-      { name: "קמח", qty: 2, unit: "cup" }, { name: "סוכר", qty: 1, unit: "cup" }, { name: "ביצים", qty: 4, unit: "egg" },
-      { name: "שמן", qty: 0.5, unit: "cup" }, { name: "אבקת אפייה", qty: 1, unit: "tbsp" }, { name: "שוקולד מריר", qty: 200, unit: "g" },
+      { name: M.t("קמח"), qty: 2, unit: "cup" }, { name: M.t("סוכר"), qty: 1, unit: "cup" }, { name: M.t("ביצים"), qty: 4, unit: "egg" },
+      { name: M.t("שמן"), qty: 0.5, unit: "cup" }, { name: M.t("אבקת אפייה"), qty: 1, unit: "tbsp" }, { name: M.t("שוקולד מריר"), qty: 200, unit: "g" },
     ],
   }, M.load(M.KEYS.scale, {}));
 
@@ -143,7 +146,7 @@
     if (st.out === "grams" && u.kind === "vol") {
       const ml = q * u.f;
       const d = guessDensity(r.name);
-      if (d) return { text: `${M.num((ml / 240) * d.g, 0)} גרם`, note: `לפי ${d.name}` };
+      if (d) return { text: `${M.num((ml / 240) * d.g, 0)} גרם`, note: M.t("לפי {0}", M.t(d.name)) };
       return { text: `${M.num(ml, 0)} מ״ל`, note: "" };
     }
     if (st.out === "grams" && u.kind === "mass") return { text: `${M.num(q * u.f, 0)} גרם`, note: "" };
@@ -163,8 +166,9 @@
     const f = factor();
     $("factor").textContent = f ? "×" + M.num(f, 2) : "—";
     let sub = "";
-    if (st.mode === "pan") sub = `${SHAPES[st.from.shape]} ${st.from.a}${st.from.shape === "rect" ? "×" + st.from.b : ""} ← ${SHAPES[st.to.shape]} ${st.to.a}${st.to.shape === "rect" ? "×" + st.to.b : ""}`;
-    if (st.mode === "servings") sub = `${st.svFrom} מנות ← ${st.svTo} מנות`;
+    const ARW = M.lang === "he" ? "←" : "→";
+    if (st.mode === "pan") sub = `${M.t(SHAPES[st.from.shape])} ${st.from.a}${st.from.shape === "rect" ? "×" + st.from.b : ""} ${ARW} ${M.t(SHAPES[st.to.shape])} ${st.to.a}${st.to.shape === "rect" ? "×" + st.to.b : ""}`;
+    if (st.mode === "servings") sub = M.t("{0} מנות ← {1} מנות", st.svFrom, st.svTo);
     $("factor-sub").textContent = sub;
 
     const rows = st.rows.filter((r) => r.name || r.qty);
@@ -179,10 +183,10 @@
     if (f > 1.4) notes.push("תבנית גדולה יותר או כמות גדולה: לרוב צריך להאריך את האפייה ולהוריד 10 מעלות כדי שהמרכז ייאפה בלי שהשוליים יתייבשו. בכמויות גדולות מאוד — עדיף לאפות בכמה סבבים.");
     if (rows.some((r) => r.unit === "egg") && Math.abs(f * 2 - Math.round(f * 2)) > 0.01) notes.push("חצאי ביצה: טורפים ביצה ושוקלים — ביצה בינונית בלי קליפה שוקלת כ־50 גרם.");
     if (st.mode === "pan" && st.from.shape !== st.to.shape) notes.push("מעבר בין צורות: חישבנו לפי השטח, כך שגובה העוגה יישאר דומה.");
-    if (rows.some((r) => /שמרים|אבקת אפייה|סודה/.test(r.name)) && f > 2) notes.push("בהגדלה של יותר מפי 2, חומרי התפיחה לא תמיד צריכים לגדול באותו יחס — כדאי לנסות קודם סבב ניסיון.");
+    if (rows.some((r) => /שמרים|אבקת אפייה|סודה|yeast|baking|levure|bicarbonate/i.test(r.name)) && f > 2) notes.push("בהגדלה של יותר מפי 2, חומרי התפיחה לא תמיד צריכים לגדול באותו יחס — כדאי לנסות קודם סבב ניסיון.");
     $("notes").innerHTML = notes.length ? notes.map((n) => "💡 " + M.esc(n)).join("<br>") : "💡 התוצאה מעוגלת לשברים נוחים. למדידה מדויקת — עברי לתצוגה בגרמים.";
     $("notes").classList.remove("hidden");
-    $("print-title").textContent = (st.title || "מתכון") + " — " + $("factor").textContent + (sub ? " (" + sub + ")" : "");
+    $("print-title").textContent = (st.title || M.t("מתכון")) + " — " + $("factor").textContent + (sub ? " (" + sub + ")" : "");
     save();
   }
 
@@ -206,7 +210,7 @@
     const r = recipes.find((x) => x.id === e.target.value);
     if (!r) return;
     st.title = r.name;
-    st.rows = (r.ingredients || []).filter((i) => i.name).map((i) => ({ name: i.name, qty: i.qty, unit: i.unit === "unit" && /ביצ/.test(i.name) ? "egg" : i.unit }));
+    st.rows = (r.ingredients || []).filter((i) => i.name).map((i) => ({ name: i.name, qty: i.qty, unit: i.unit === "unit" && /ביצ|egg|œuf|oeuf/i.test(i.name) ? "egg" : i.unit }));
     if (r.servings) { st.svFrom = r.servings; $("sv-from").value = r.servings; }
     renderRows(); update();
     M.toast("נטען: " + r.name);

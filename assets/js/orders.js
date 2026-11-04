@@ -8,8 +8,7 @@
   const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   const parseYmd = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
   const todayStr = ymd(new Date());
-  const heDate = (s) => parseYmd(s).toLocaleDateString("he-IL", { weekday: "long", day: "numeric", month: "long" });
-  const MONTHS = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
+  const heDate = (s) => parseYmd(s).toLocaleDateString(M.locale, { weekday: "long", day: "numeric", month: "long" });
 
   let orders = M.load(M.KEYS.orders, []);
   let recipes = M.getRecipes();
@@ -115,7 +114,7 @@
   /* ---------- Order card ---------- */
   function orderCard(o, showDate) {
     const remaining = (o.price || 0) - (o.deposit || 0);
-    const msg = `היי ${o.customer}, תזכורת: ההזמנה שלך מוכנה ל${o.delivery === "delivery" ? "משלוח" : "איסוף"} ב${heDate(o.due)}${o.time ? " בשעה " + o.time : ""}. נשאר לתשלום: ${M.money(remaining)}. תודה! 💗`;
+    const msg = M.t("היי {0}, תזכורת: ההזמנה שלך מוכנה ל{1} ב{2}{3}. נשאר לתשלום: {4}. תודה! 💗", o.customer, M.t(o.delivery === "delivery" ? "משלוח" : "איסוף"), heDate(o.due), o.time ? " " + M.t("בשעה {0}", o.time) : "", M.money(remaining));
     return `<div class="order-card${o.done ? " done" : ""}">
       <div class="oc-top">
         <strong>${M.esc(o.customer)}${o.time ? " · " + M.esc(o.time) : ""}</strong>
@@ -152,12 +151,13 @@
   /* ---------- Calendar ---------- */
   function renderCal() {
     const y = viewMonth.getFullYear(), m = viewMonth.getMonth();
-    $("cal-title").textContent = `${MONTHS[m]} ${y}`;
+    $("cal-title").textContent = new Intl.DateTimeFormat(M.locale, { month: "long", year: "numeric" }).format(new Date(y, m, 1));
     const first = new Date(y, m, 1);
     const start = new Date(first); start.setDate(1 - first.getDay()); // Sunday start
     const byDay = {};
     orders.forEach((o) => { (byDay[o.due] = byDay[o.due] || []).push(o); });
-    let html = ["א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳", "ש׳"].map((d) => `<div class="dow" aria-hidden="true">${d}</div>`).join("");
+    const dow = new Intl.DateTimeFormat(M.locale, { weekday: M.lang === "he" ? "narrow" : "short" });
+    let html = [0, 1, 2, 3, 4, 5, 6].map((i) => `<div class="dow" aria-hidden="true" data-no-i18n>${dow.format(new Date(2023, 0, 1 + i))}</div>`).join("");
     for (let i = 0; i < 42; i++) {
       const d = new Date(start); d.setDate(start.getDate() + i);
       const s = ymd(d);

@@ -32,9 +32,10 @@
 
   function save() { M.save(M.KEYS.messages, st); }
   const all = () => st.custom.concat(DEFAULTS.filter((d) => !st.custom.some((c) => c.overrides === d.id)));
+  const ALIAS = { name: "שם", nom: "שם", product: "מוצר", produit: "מוצר", date: "תאריך", time: "שעה", heure: "שעה", price: "מחיר", prix: "מחיר", deposit: "מקדמה", acompte: "מקדמה", holiday: "חג", fete: "חג", business: "עסק", entreprise: "עסק", link: "קישור", lien: "קישור" };
   function fillText(body) {
-    return body.replace(/\{([^}]+)\}/g, (m, k) => {
-      const v = (st.vars[k] || "").trim();
+    return M.t(body).replace(/\{([^}]+)\}/g, (m, k) => {
+      const v = (st.vars[ALIAS[k] || k] || "").trim();
       return v || `[${k}]`;
     });
   }

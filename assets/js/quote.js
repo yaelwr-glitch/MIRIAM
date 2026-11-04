@@ -12,7 +12,7 @@
     "• שינויים בהזמנה — עד 5 ימים לפני מועד המסירה.",
     "• המוצרים מכילים או עלולים להכיל: גלוטן, חלב, ביצים, אגוזים ובוטנים. נא לעדכן על אלרגיות.",
     "• יש לשמור את הקינוחים בקירור עד ההגשה.",
-  ].join("\n");
+  ].map((l) => M.t(l)).join("\n");
 
   let profile = M.getProfile();
   let quotes = M.load(M.KEYS.quotes, []);
@@ -24,7 +24,7 @@
   }
   function blank() {
     return { id: null, number: "", customer: "", phone: "", event: "", date: "", valid: 14, created: new Date().toISOString().slice(0, 10),
-      items: [{ desc: "", qty: 1, price: "" }], discount: "", deposit: 30, vat: false, terms: DEFAULT_TERMS, notes: "תודה שבחרת בנו! נשמח להכין לך משהו מיוחד 💗" };
+      items: [{ desc: "", qty: 1, price: "" }], discount: "", deposit: 30, vat: false, terms: DEFAULT_TERMS, notes: M.t("תודה שבחרת בנו! נשמח להכין לך משהו מיוחד 💗") };
   }
   if (!q.number) q.number = nextNumber();
 
@@ -48,8 +48,8 @@
     const deposit = Math.round(total * (M.parseNum(q.deposit) / 100));
     return { sub, disc, vat, total, deposit, rest: total - deposit };
   }
-  const heDate = (s) => (s ? new Date(s + "T12:00:00").toLocaleDateString("he-IL") : "");
-  function validUntil() { const d = new Date(q.created + "T12:00:00"); d.setDate(d.getDate() + (M.parseNum(q.valid) || 14)); return d.toLocaleDateString("he-IL"); }
+  const heDate = (s) => (s ? new Date(s + "T12:00:00").toLocaleDateString(M.locale) : "");
+  function validUntil() { const d = new Date(q.created + "T12:00:00"); d.setDate(d.getDate() + (M.parseNum(q.valid) || 14)); return d.toLocaleDateString(M.locale); }
 
   /* ---------- Editor ---------- */
   function renderItems() {

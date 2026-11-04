@@ -63,6 +63,8 @@ export default {
 
     const message = String(body.message || "").slice(0, 3000).trim();
     const category = String(body.category || "").slice(0, 60);
+    const LANGS = { he: "Hebrew", en: "English", fr: "French" };
+    const lang = LANGS[body.lang] ? body.lang : "he";
     const image = body.image && typeof body.image === "object" ? body.image : null;
     if (!message && !image) return json({ error: "empty" }, 400, cors);
 
@@ -85,7 +87,7 @@ export default {
       const response = await client.beta.messages.create({
         model: MODEL,
         max_tokens: 4000,
-        system: SYSTEM_PROMPT,
+        system: SYSTEM_PROMPT + (lang === "he" ? "" : `\n\nIMPORTANT: the student is using the ${LANGS[lang]} version of the site — write your whole answer in ${LANGS[lang]} (same structure and headings, translated).`),
         messages: [{ role: "user", content }],
         output_config: { effort: "medium" },
         // If a safety classifier declines, the API re-runs the request on a recommended fallback model.
@@ -94,7 +96,8 @@ export default {
       });
 
       if (response.stop_reason === "refusal") {
-        return json({ reply: "מצטערת, לא אוכל לעזור בשאלה הזו. אפשר לנסח אותה מחדש, או לפנות ישירות למרים." }, 200, cors);
+        const sorry = { he: "מצטערת, לא אוכל לעזור בשאלה הזו. אפשר לנסח אותה מחדש, או לפנות ישירות למרים.", en: "Sorry, I can't help with this question. Try rephrasing it, or contact Miriam directly.", fr: "Désolée, je ne peux pas répondre à cette question. Reformulez-la ou contactez directement Miriam." };
+        return json({ reply: sorry[lang] }, 200, cors);
       }
       const reply = response.content
         .filter((b) => b.type === "text")

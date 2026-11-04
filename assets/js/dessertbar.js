@@ -16,13 +16,13 @@
   const MEAL_ADJ = { full: 0, light: 1, none: 2 };
 
   const DEFAULT_TYPES = [
-    { on: true, name: "מיני טארטים", w: 2, cost: 2.5, price: 8 },
-    { on: true, name: "כוסות מוס", w: 2, cost: 3, price: 9 },
-    { on: true, name: "מקרונים", w: 1.5, cost: 1.8, price: 6 },
-    { on: true, name: "פרלינים / טראפלס", w: 1.5, cost: 1.5, price: 5 },
-    { on: true, name: "מיני עוגות / קאפקייקס", w: 1, cost: 3, price: 10 },
-    { on: false, name: "עוגיות מעוצבות", w: 1, cost: 2, price: 7 },
-    { on: false, name: "פירות בשוקולד", w: 1, cost: 2, price: 6 },
+    { on: true, name: M.t("מיני טארטים"), w: 2, cost: 2.5, price: 8 },
+    { on: true, name: M.t("כוסות מוס"), w: 2, cost: 3, price: 9 },
+    { on: true, name: M.t("מקרונים"), w: 1.5, cost: 1.8, price: 6 },
+    { on: true, name: M.t("פרלינים / טראפלס"), w: 1.5, cost: 1.5, price: 5 },
+    { on: true, name: M.t("מיני עוגות / קאפקייקס"), w: 1, cost: 3, price: 10 },
+    { on: false, name: M.t("עוגיות מעוצבות"), w: 1, cost: 2, price: 7 },
+    { on: false, name: M.t("פירות בשוקולד"), w: 1, cost: 2, price: 6 },
   ];
 
   let st = Object.assign({
@@ -111,9 +111,9 @@
   $("to-quote").addEventListener("click", () => {
     const c = compute();
     const items = c.rows.map((r) => ({ desc: r.name, qty: r.units, price: r.unitPrice }));
-    if (c.setup) items.push({ desc: "עיצוב והקמת שולחן קינוחים", qty: 1, price: c.setup });
-    if (c.delivery) items.push({ desc: "משלוח", qty: 1, price: c.delivery });
-    M.save("mirel_quote_import_v1", { title: `בר קינוחים ל${EVENTS[st.event].name} — ${c.guests} אורחים`, items });
+    if (c.setup) items.push({ desc: M.t("עיצוב והקמת שולחן קינוחים"), qty: 1, price: c.setup });
+    if (c.delivery) items.push({ desc: M.t("משלוח"), qty: 1, price: c.delivery });
+    M.save("mirel_quote_import_v1", { title: M.t("בר קינוחים ל{0} — {1} אורחים", M.t(EVENTS[st.event].name), c.guests), items });
     location.href = "quote.html?from=bar";
   });
 

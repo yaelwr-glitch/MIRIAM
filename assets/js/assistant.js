@@ -60,7 +60,8 @@
 
   function renderGuide(filter) {
     const q = (filter || "").trim();
-    const items = GUIDE.filter((g) => !q || g.t.includes(q) || g.k.some((k) => k.includes(q) || q.includes(k)));
+    const ql = q.toLowerCase();
+    const items = GUIDE.filter((g) => !q || g.t.includes(q) || M.t(g.t).toLowerCase().includes(ql) || g.k.some((k) => k.includes(q) || q.includes(k) || (ql.length > 2 && (M.t(k).toLowerCase().includes(ql) || ql.includes(M.t(k).toLowerCase())))));
     $("guide").innerHTML = items.length ? items.map(guideHtml).join("") : `<div class="empty">לא נמצאה תקלה מתאימה. נסי מילה אחרת.</div>`;
   }
   function guideHtml(g, open) {
@@ -69,7 +70,8 @@
       <h4>איך מתקנים</h4><ul>${g.f.map((x) => `<li>${M.esc(x)}</li>`).join("")}</ul></details>`;
   }
   function matchGuide(text) {
-    const scored = GUIDE.map((g) => ({ g, s: g.k.reduce((s, k) => s + (text.includes(k) ? 1 : 0), 0) + (text.includes(g.t) ? 2 : 0) }))
+    const low = text.toLowerCase();
+    const scored = GUIDE.map((g) => ({ g, s: g.k.reduce((s, k) => s + (text.includes(k) || (M.lang !== "he" && low.includes(M.t(k).toLowerCase())) ? 1 : 0), 0) + (text.includes(g.t) ? 2 : 0) }))
       .filter((x) => x.s > 0).sort((a, b) => b.s - a.s);
     return scored.slice(0, 3).map((x) => x.g);
   }
@@ -114,7 +116,7 @@
   /* ---------- History ---------- */
   let history = M.load(M.KEYS.assistant, []);
   function renderHistory() {
-    $("history").innerHTML = history.length ? history.map((h, i) => `<li class="saved-item"><div><strong>${M.esc(h.q.slice(0, 60))}${h.q.length > 60 ? "…" : ""}</strong><span class="meta">${new Date(h.at).toLocaleDateString("he-IL")}</span></div><button class="btn btn-sm btn-ghost" data-h="${i}" type="button">הצגה</button></li>`).join("")
+    $("history").innerHTML = history.length ? history.map((h, i) => `<li class="saved-item"><div><strong>${M.esc(h.q.slice(0, 60))}${h.q.length > 60 ? "…" : ""}</strong><span class="meta">${new Date(h.at).toLocaleDateString(M.locale)}</span></div><button class="btn btn-sm btn-ghost" data-h="${i}" type="button">הצגה</button></li>`).join("")
       : `<li class="empty">עוד לא שאלת שאלות</li>`;
   }
   $("history").addEventListener("click", (e) => {
@@ -141,7 +143,7 @@
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, category: cat, image: photo }),
+        body: JSON.stringify({ message: text, category: cat, image: photo, lang: M.lang }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.reply) throw new Error(data.error || "server");

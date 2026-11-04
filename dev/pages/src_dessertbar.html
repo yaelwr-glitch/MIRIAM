@@ -1,0 +1,72 @@
+{{HEAD title="מחשבון בר קינוחים | מהמטבח לעסק משלי" desc="כמה יחידות להכין לבר קינוחים? מכניסים מספר אורחים וסוג אירוע — ומקבלים כמויות לכל סוג, עלות משוערת והצעת מחיר ללקוחה."}}
+<style>
+  .db-type { display: grid; grid-template-columns: auto 1.6fr 1fr 1fr 1fr; gap: 8px; align-items: end; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--cream); }
+  .db-type.off { opacity: .55; }
+  .db-type label { font-size: .78rem; color: var(--muted); margin-bottom: 2px; }
+  .db-type input[type=number], .db-type input[type=text] { min-height: 40px; background: #fff; }
+  .db-type .tgl { align-self: center; }
+  @media (max-width: 620px) { .db-type { grid-template-columns: auto 1fr 1fr 1fr; } .db-type .dbn { grid-column: 2 / -1; } .db-type .dbw { grid-column: 2; } }
+</style>
+</head>
+<body>
+{{HEADER}}
+<main id="main">
+  <section class="tool-hero">
+    <div class="wrap">
+      <span class="eyebrow no-print">כלי 6</span>
+      <h1>מחשבון בר קינוחים לאירוע</h1>
+      <p class="no-print">לקוחה שואלת "כמה זה יעלה לבר קינוחים ל־120 איש?" — במקום לנחש, מכניסות את פרטי האירוע ומקבלות כמה יחידות להכין מכל סוג, כמה זה יעלה לך ובכמה להציע. בלחיצה אחת זה הופך להצעת מחיר מעוצבת.</p>
+    </div>
+  </section>
+
+  <div class="wrap tool-layout">
+    <div class="no-print">
+      <div class="panel">
+        <h2>פרטי האירוע</h2>
+        <div class="field-row">
+          <div class="field"><label for="d-guests">מספר אורחים</label><input id="d-guests" type="number" min="1" step="1" inputmode="numeric"></div>
+          <div class="field"><label for="d-event">סוג האירוע</label><select id="d-event"></select></div>
+          <div class="field"><label for="d-meal">מה יש לפני הקינוחים?</label>
+            <select id="d-meal"><option value="full">ארוחה מלאה</option><option value="light">כיבוד קל</option><option value="none">רק קינוחים</option></select></div>
+          <div class="field"><label for="d-ppg">יחידות לאורח</label><input id="d-ppg" type="number" min="0.5" step="0.5" inputmode="decimal"><div class="hint" id="ppg-hint"></div></div>
+        </div>
+        <label class="check"><input type="checkbox" id="d-buffer"> להוסיף 10% רזרבה</label>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>סוגי הקינוחים</h2><button type="button" class="btn btn-sm btn-outline" id="add-type">+ סוג</button></div>
+        <p class="hint">"משקל" — כמה מהבר יהיה מהסוג הזה (למשל 2 = פי שניים מסוג עם משקל 1). עלות ומחיר — ליחידה.</p>
+        <div class="rows" id="types"></div>
+      </div>
+
+      <div class="panel">
+        <h2>תוספות</h2>
+        <div class="field-row">
+          <div class="field"><label for="d-setup">עיצוב והקמת שולחן ₪</label><input id="d-setup" type="number" min="0" step="10" inputmode="decimal"></div>
+          <div class="field"><label for="d-delivery">משלוח ₪</label><input id="d-delivery" type="number" min="0" step="10" inputmode="decimal"></div>
+          <div class="field"><label for="d-hours">שעות עבודה</label><input id="d-hours" type="number" min="0" step="0.5" inputmode="decimal"></div>
+          <div class="field"><label for="d-rate">שכר לשעה ₪</label><input id="d-rate" type="number" min="0" step="5" inputmode="decimal"></div>
+        </div>
+      </div>
+      <div id="backup"></div>
+    </div>
+
+    <aside class="sticky-col">
+      <div class="panel">
+        <h2>התוצאה</h2>
+        <div class="table-wrap"><table class="data" id="out-table"></table></div>
+        <div class="stats" style="margin-top:12px" id="out-stats"></div>
+        <div class="btn-row no-print" style="margin-top:14px">
+          <button type="button" class="btn" id="to-quote">ליצירת הצעת מחיר ←</button>
+          <button type="button" class="btn btn-ghost" id="copy-btn">העתקה</button>
+          <button type="button" class="btn btn-ghost" id="print-btn">הדפסה</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+{{FOOTER}}
+<script src="../assets/common.js"></script>
+<script src="../assets/js/dessertbar.js"></script>
+</body>
+</html>

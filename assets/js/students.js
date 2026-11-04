@@ -43,7 +43,7 @@
         <div class="rows" style="margin-top:14px">${m.lessons.map((l, li) => {
           const src = embedUrl(l.video);
           return `<article class="lesson${st.done[l.id] ? " done" : ""}">
-            <h3 style="margin:0;font-size:1.1rem">${mi + 1}.${li + 1} ${M.esc(l.title)}</h3>
+            <h3 style="margin:0;font-size:1.1rem"><span>${mi + 1}.${li + 1}</span> <span>${M.esc(l.title)}</span></h3>
             ${l.desc ? `<p class="muted" style="margin:0">${M.esc(l.desc)}</p>` : ""}
             <div class="video-ph">${src ? `<iframe src="${src}" title="${M.esc(l.title)}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>` : `<span>🎬 הסרטון יעלה בקרוב<!-- TODO: להוסיף קישור וידאו ב-tools/course-data.js --></span>`}</div>
             ${l.task ? `<div class="info-box"><strong>המשימה:</strong> ${M.esc(l.task)}${l.tool ? ` <a href="${l.tool}">לכלי ←</a>` : ""}</div>` : ""}

@@ -72,18 +72,18 @@
   function hashtags(s) {
     const d = DESSERTS[st.dessert], o = OCCASIONS[st.occasion];
     const city = (st.city || "").trim().replace(/\s+/g, "");
-    const loc = city ? [city, "עוגות" + city, "קינוחים" + city] : [];
-    const tags = [...new Set([...d.tags, ...o.tags, ...loc, ...shuffle(GENERAL, s).slice(0, 6)])].slice(0, 15);
+    const loc = city ? [city, M.t("עוגות") + city, M.t("קינוחים") + city] : [];
+    const tags = [...new Set([...d.tags, ...o.tags, ...loc, ...shuffle(GENERAL, s).slice(0, 6)].map((x) => M.t(x)))].slice(0, 15);
     return tags.map((t) => "#" + t).join(" ");
   }
 
   function build(i) {
     const d = DESSERTS[st.dessert], o = OCCASIONS[st.occasion];
-    const tpl = pick(T[st.style], seed + i);
+    const tpl = pick(T[st.style], seed + i).split("\n").map((l) => M.t(l)).join("\n");
     const det = st.detail.trim() ? `\n${st.style === "short" ? "" : "✨ "}${st.detail.trim()}` : "";
-    let text = tpl.replace(/\{W\}/g, d.w).replace(/\{N\}/g, d.n.split(" / ")[0]).replace(/\{P\}/g, o.p).replace(/\{D\}/g, det).replace(/ +([,.!])/g, "$1").replace(/  +/g, " ");
+    let text = tpl.replace(/\{W\}/g, M.t(d.w)).replace(/\{N\}/g, M.t(d.n).split(" / ")[0]).replace(/\{P\}/g, M.t(o.p)).replace(/\{D\}/g, det).replace(/ +([,.!])/g, "$1").replace(/  +/g, " ");
     text = text.charAt(0).toUpperCase() + text.slice(1);
-    const cta = pick(CTA[st.cta], seed + i);
+    const cta = M.t(pick(CTA[st.cta], seed + i));
     return text.trim() + (cta ? "\n\n" + cta : "") + "\n.\n.\n" + hashtags(seed + i);
   }
 

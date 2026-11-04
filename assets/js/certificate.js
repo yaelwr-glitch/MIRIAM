@@ -8,7 +8,7 @@
   const save = () => M.save(M.KEYS.certificate, st);
 
   function render() {
-    const d = st.date ? new Date(st.date + "T12:00:00").toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" }) : "";
+    const d = st.date ? new Date(st.date + "T12:00:00").toLocaleDateString(M.locale, { day: "numeric", month: "long", year: "numeric" }) : "";
     $("cert").innerHTML = `
       <span class="corner c1"></span><span class="corner c2"></span><div class="frame"></div>
       <div class="inner">
@@ -19,7 +19,7 @@
         <div class="name">${M.esc(st.name || "שם התלמידה")}</div>
         <div class="body">על השלמה מוצלחת של התכנית</div>
         <div class="course">״מהמטבח לעסק משלי״</div>
-        <div class="body">הכוללת תמחור, תפריט ומיתוג, שיווק ולקוחות, ניהול הזמנות, בטיחות מזון וצמיחה${st.business ? ` — ובניית העסק <strong>${M.esc(st.business)}</strong>` : ""}.${st.cohort ? `<br>${M.esc(st.cohort)}` : ""}</div>
+        <div class="body">${M.t("הכוללת תמחור, תפריט ומיתוג, שיווק ולקוחות, ניהול הזמנות, בטיחות מזון וצמיחה")}${st.business ? ` ${M.t("— ובניית העסק")} <strong>${M.esc(st.business)}</strong>` : ""}.${st.cohort ? `<br>${M.esc(st.cohort)}` : ""}</div>
         <div class="foot">
           <div><span class="sig">${d}</span><br>תאריך</div>
           <div><span class="sig">מרים</span><br>מרים · MIREL</div>

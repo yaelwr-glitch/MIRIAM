@@ -654,3 +654,29 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 3px solid var
 
 /* --- Confetti canvas --- */
 .confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 300; }
+
+/* =========================================================
+   Language switcher + left-to-right (English / French) fixes
+   ========================================================= */
+.lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: #fff; margin-inline-start: auto; margin-inline-end: 8px; flex: 0 0 auto; }
+.lang-switch button { border: 0; background: none; padding: 6px 9px; min-height: 34px; font: 600 .78rem var(--font-body); color: var(--muted); cursor: pointer; letter-spacing: .03em; }
+.lang-switch button[aria-pressed="true"] { background: var(--rose-dark); color: #fff; }
+.lang-switch button:hover:not([aria-pressed="true"]) { background: var(--cream); color: var(--choc); }
+@media (min-width: 960px) { .lang-switch { order: 3; margin-inline-start: 10px; margin-inline-end: 0; } .site-header .wrap .site-nav { order: 2; margin-inline-start: auto; } }
+[dir="ltr"] input[type="number"] { text-align: left; }
+[dir="ltr"] input[type="range"] { background: linear-gradient(to right, var(--rose) var(--p, 50%), var(--line) var(--p, 50%)); }
+[dir="ltr"] .ribbon-track { animation-name: marquee-ltr; }
+@keyframes marquee-ltr { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+[dir="ltr"] .scroll-progress { transform-origin: left; }
+[dir="ltr"] .cal-head button { transform: scaleX(-1); }
+[dir="ltr"] .tool-tab[aria-selected="true"] { transform: translateX(4px); }
+[dir="ltr"] .hero h1 { letter-spacing: -.02em; }
+[dir="ltr"] .brand-text strong { letter-spacing: .08em; }
+@media (min-width: 960px) {
+  .site-nav a { white-space: nowrap; }
+  [dir="ltr"] .site-nav a { padding: 8px 9px; font-size: .92rem; }
+  [dir="ltr"] .brand-text span { max-width: 200px; white-space: normal; line-height: 1.2; }
+}
+@media (min-width: 960px) and (max-width: 1180px) {
+  [dir="ltr"] .brand-text span { display: none; }
+}

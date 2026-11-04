@@ -5,20 +5,20 @@
   const $ = (id) => document.getElementById(id);
 
   const SAMPLE = {
-    name: "עוגת שוקולד-פטל 24 ס״מ",
+    name: M.t("עוגת שוקולד-פטל 24 ס״מ"),
     servings: 14,
-    category: "עוגות",
+    category: M.t("עוגות"),
     ingredients: [
-      { name: "שוקולד מריר 60%", pkgSize: 1, pkgUnit: "kg", pkgPrice: 75, qty: 250, unit: "g" },
-      { name: "חמאה", pkgSize: 200, pkgUnit: "g", pkgPrice: 9.9, qty: 200, unit: "g" },
-      { name: "ביצים", pkgSize: 12, pkgUnit: "unit", pkgPrice: 14, qty: 5, unit: "unit" },
-      { name: "סוכר", pkgSize: 1, pkgUnit: "kg", pkgPrice: 6.5, qty: 180, unit: "g" },
-      { name: "שמנת מתוקה 38%", pkgSize: 250, pkgUnit: "ml", pkgPrice: 7.9, qty: 500, unit: "ml" },
-      { name: "פטל קפוא", pkgSize: 400, pkgUnit: "g", pkgPrice: 22, qty: 200, unit: "g" },
+      { name: M.t("שוקולד מריר 60%"), pkgSize: 1, pkgUnit: "kg", pkgPrice: 75, qty: 250, unit: "g" },
+      { name: M.t("חמאה"), pkgSize: 200, pkgUnit: "g", pkgPrice: 9.9, qty: 200, unit: "g" },
+      { name: M.t("ביצים"), pkgSize: 12, pkgUnit: "unit", pkgPrice: 14, qty: 5, unit: "unit" },
+      { name: M.t("סוכר"), pkgSize: 1, pkgUnit: "kg", pkgPrice: 6.5, qty: 180, unit: "g" },
+      { name: M.t("שמנת מתוקה 38%"), pkgSize: 250, pkgUnit: "ml", pkgPrice: 7.9, qty: 500, unit: "ml" },
+      { name: M.t("פטל קפוא"), pkgSize: 400, pkgUnit: "g", pkgPrice: 22, qty: 200, unit: "g" },
     ],
     extras: [
-      { name: "קופסת עוגה + תחתית", cost: 6 },
-      { name: "קישוטים ופרחים", cost: 8 },
+      { name: M.t("קופסת עוגה + תחתית"), cost: 6 },
+      { name: M.t("קישוטים ופרחים"), cost: 8 },
     ],
     hours: 2.5, rate: 60, overhead: 10, margin: 30, vat: false, vatRate: 18,
   };
@@ -126,7 +126,7 @@
     const extras = state.extras.filter((x) => x.name || x.cost).map((x) => `<tr><td>${M.esc(x.name)}</td><td></td><td>${M.money(M.parseNum(x.cost))}</td></tr>`).join("");
     $("print-sheet").innerHTML = `
       <h2>${M.esc(state.name || "מתכון")}</h2>
-      <p>${c.servings} מנות · הודפס ב־${new Date().toLocaleDateString("he-IL")}</p>
+      <p>${c.servings} מנות · הודפס ב־${new Date().toLocaleDateString(M.locale)}</p>
       <table style="width:100%;border-collapse:collapse" border="1" cellpadding="6">
         <thead><tr><th>רכיב</th><th>כמות</th><th>עלות</th></tr></thead>
         <tbody>${rows}${extras}</tbody>
@@ -202,7 +202,7 @@
   $("new-btn").addEventListener("click", () => {
     if (!confirm("להתחיל מתכון חדש? שינויים שלא נשמרו יימחקו.")) return;
     editingId = null;
-    state = { name: "", servings: 12, category: "", ingredients: [blankIng(), blankIng(), blankIng()], extras: [{ name: "אריזה", cost: "" }], hours: 1, rate: state.rate || 60, overhead: state.overhead || 10, margin: state.margin || 30, vat: state.vat, vatRate: state.vatRate || 18 };
+    state = { name: "", servings: 12, category: "", ingredients: [blankIng(), blankIng(), blankIng()], extras: [{ name: M.t("אריזה"), cost: "" }], hours: 1, rate: state.rate || 60, overhead: state.overhead || 10, margin: state.margin || 30, vat: state.vat, vatRate: state.vatRate || 18 };
     fillForm();
     $("r-name").focus();
   });

@@ -1,0 +1,53 @@
+{{HEAD title="בנק הודעות ללקוחות | מהמטבח לעסק משלי" desc="תבניות מוכנות לוואטסאפ ולאינסטגרם: אישור הזמנה, תזכורת לאיסוף, בקשת המלצה, מבצע לחג — מעתיקים בלחיצה."}}
+</head>
+<body>
+{{HEADER}}
+<main id="main">
+  <section class="tool-hero">
+    <div class="wrap">
+      <span class="eyebrow">כלי 9</span>
+      <h1>בנק הודעות ללקוחות</h1>
+      <p>הודעות מוכנות, מנוסחות ונעימות — לכל רגע בחיי ההזמנה. ממלאות פעם אחת את הפרטים למעלה, וכל ההודעות מתעדכנות. לחיצה אחת — מועתק או נשלח בוואטסאפ.</p>
+    </div>
+  </section>
+
+  <div class="wrap tool-layout">
+    <div>
+      <div class="panel">
+        <h2>הפרטים להודעה</h2>
+        <div class="field-row">
+          <div class="field"><label for="v-name">שם הלקוחה</label><input id="v-name" type="text" data-v="שם"></div>
+          <div class="field"><label for="v-phone">טלפון הלקוחה (לוואטסאפ)</label><input id="v-phone" type="tel" inputmode="tel"></div>
+          <div class="field"><label for="v-product">מה הוזמן</label><input id="v-product" type="text" data-v="מוצר"></div>
+          <div class="field"><label for="v-date">תאריך</label><input id="v-date" type="text" data-v="תאריך" placeholder="יום חמישי, 12.12"></div>
+          <div class="field"><label for="v-time">שעה</label><input id="v-time" type="text" data-v="שעה" placeholder="17:00"></div>
+          <div class="field"><label for="v-price">מחיר ₪</label><input id="v-price" type="text" data-v="מחיר" inputmode="decimal"></div>
+          <div class="field"><label for="v-deposit">מקדמה ₪</label><input id="v-deposit" type="text" data-v="מקדמה" inputmode="decimal"></div>
+          <div class="field"><label for="v-holiday">חג / מבצע</label><input id="v-holiday" type="text" data-v="חג" placeholder="ראש השנה"></div>
+          <div class="field"><label for="v-business">שם העסק שלי</label><input id="v-business" type="text" data-v="עסק"></div>
+          <div class="field"><label for="v-link">קישור (תפריט / גוגל / אינסטגרם)</label><input id="v-link" type="url" data-v="קישור" dir="ltr"></div>
+        </div>
+      </div>
+
+      <div class="chips" id="cats" role="group" aria-label="סינון לפי נושא" style="margin:6px 0 14px"></div>
+      <div class="rows" id="list"></div>
+    </div>
+
+    <aside class="sticky-col">
+      <form class="panel" id="tpl-form">
+        <h2 id="tpl-form-title">תבנית משלי</h2>
+        <div class="field"><label for="t-title">שם התבנית</label><input id="t-title" type="text" required></div>
+        <div class="field"><label for="t-cat">נושא</label><select id="t-cat"></select></div>
+        <div class="field"><label for="t-body">הטקסט</label><textarea id="t-body" rows="7" required></textarea>
+          <div class="hint">אפשר להשתמש ב: {שם} {מוצר} {תאריך} {שעה} {מחיר} {מקדמה} {חג} {עסק} {קישור}</div></div>
+        <div class="btn-row"><button class="btn" type="submit">שמירת תבנית</button><button class="btn btn-ghost hidden" id="t-cancel" type="button">ביטול</button></div>
+      </form>
+      <div id="backup"></div>
+    </aside>
+  </div>
+</main>
+{{FOOTER}}
+<script src="../assets/common.js"></script>
+<script src="../assets/js/messages.js"></script>
+</body>
+</html>
