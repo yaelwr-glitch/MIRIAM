@@ -12,8 +12,7 @@
     $("cert").innerHTML = `
       <span class="corner c1"></span><span class="corner c2"></span><div class="frame"></div>
       <div class="inner">
-        <div class="seal" aria-hidden="true">M</div>
-        <div class="brand">MIREL · שוקולד וקונדיטוריית בוטיק</div>
+        <img class="cert-logo" src="../assets/img/mirel-logo.svg" alt="MIREL שוקולד וקונדיטוריית בוטיק" width="232" height="126">
         <h2>תעודת סיום</h2>
         <div class="lead">בזאת מוענקת ל</div>
         <div class="name">${M.esc(st.name || "שם התלמידה")}</div>

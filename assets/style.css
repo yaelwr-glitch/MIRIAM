@@ -783,3 +783,17 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 3px solid var
 .spin-badge svg, .spin-badge text { direction: ltr; unicode-bidi: plaintext; }
 .steps-card .spin-badge { top: auto; bottom: -30px; inset-inline-end: -30px; }
 @media (max-width: 420px) { .brand-text span { display: none; } .brand-text strong { font-size: 1.7rem; } }
+
+/* =========================================================
+   Real MIREL logo (vector redraw of the original)
+   ========================================================= */
+.brand { gap: 12px; }
+.brand .mirel-logo { height: 48px; width: auto; color: var(--choc); --logo-tag: #8c7e7e; flex: 0 0 auto; display: block; }
+.site-header.scrolled .brand .mirel-logo { height: 42px; transition: height .25s; }
+.brand-course { font-size: .78rem; color: var(--muted); line-height: 1.25; padding-inline-start: 12px; border-inline-start: 1px solid var(--line); max-width: 110px; }
+@media (max-width: 520px) { .brand-course { display: none; } .brand .mirel-logo { height: 42px; } }
+@media (min-width: 960px) and (max-width: 1180px) { .brand-course { display: none; } }
+.footer-logo { display: inline-block; margin-bottom: 8px; }
+.footer-logo .mirel-logo { height: 58px; width: auto; color: #f3e6e3; --logo-tag: #cdb8b3; display: block; }
+.cert-logo { height: 92px; width: auto; margin: 0 auto 10px; display: block; }
+.cert .seal, .cert .brand { display: none; }
