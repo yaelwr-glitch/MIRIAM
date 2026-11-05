@@ -492,11 +492,58 @@
       move();
     }
 
+    // PowerPoint-style entrances: <el data-anim="right|left|up|down|zoom|pop|flip|flip-x|rotate|drop|words" data-delay="200">
+    document.documentElement.classList.add("js-anim");
+    document.querySelectorAll('[data-anim="words"]').forEach((h) => {
+      if (h.dataset.split) return; h.dataset.split = "1";
+      let i = 0;
+      const tw = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+      const nodes = []; let n; while ((n = tw.nextNode())) nodes.push(n);
+      nodes.forEach((tn) => {
+        const parts = tn.nodeValue.split(/(\s+)/);
+        if (parts.length < 2 && !tn.nodeValue.trim()) return;
+        const frag = document.createDocumentFragment();
+        parts.forEach((p) => {
+          if (!p) return;
+          if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); return; }
+          const w = document.createElement("span"); w.className = "w"; w.style.setProperty("--i", i++); w.textContent = p; frag.appendChild(w);
+        });
+        tn.parentNode.replaceChild(frag, tn);
+      });
+    });
+    const aio = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting) { en.target.classList.add("anim-in"); aio.unobserve(en.target); }
+    }), { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
+    document.querySelectorAll("[data-anim]").forEach((el) => {
+      if (el.dataset.delay) el.style.setProperty("--ad", (+el.dataset.delay / 1000) + "s");
+      aio.observe(el);
+    });
+    // scroll-driven motion: <el data-scroll="y:-0.15 r:0.03 s:0.0005">
+    const movers = Array.from(document.querySelectorAll("[data-scroll]")).map((el) => {
+      const o = {}; el.dataset.scroll.split(/\s+/).forEach((kv) => { const [k, v] = kv.split(":"); o[k] = parseFloat(v) || 0; });
+      return { el, o };
+    });
+    if (movers.length) {
+      let tk = false;
+      const run = () => {
+        tk = false;
+        movers.forEach(({ el, o }) => {
+          const r = el.getBoundingClientRect(); if (r.bottom < -200 || r.top > innerHeight + 200) return;
+          const d = r.top + r.height / 2 - innerHeight / 2;
+          el.style.translate = `${((o.x || 0) * d).toFixed(1)}px ${((o.y || 0) * d).toFixed(1)}px`;
+          el.style.rotate = `${((o.r || 0) * d).toFixed(2)}deg`;
+          if (o.s) el.style.scale = (1 - Math.min(.25, Math.abs(d) * o.s)).toFixed(3);
+        });
+      };
+      addEventListener("scroll", () => { if (!tk) { tk = true; requestAnimationFrame(run); } }, { passive: true });
+      run();
+    }
+
     // scroll reveal — added by JS only, so content is always visible without it
     const groups = [".section-head", ".pain", ".t-card", ".steps-card", ".card", ".module", ".faq details", ".quote", ".compare > *", ".gallery figure", ".about > *", ".cta-box", ".quiz-teaser", ".tool-card", ".stats-strip .wrap > div", ".lesson", ".msg-card"];
     const els = [];
     groups.forEach((sel) => document.querySelectorAll(sel).forEach((el) => {
-      if (el.closest(".hero") || el.classList.contains("reveal")) return;
+      if (el.closest(".hero") || el.classList.contains("reveal") || el.hasAttribute("data-anim") || el.closest("[data-anim]")) return;
       el.classList.add("reveal");
       if (el.matches(".gallery figure, .cta-box")) el.classList.add("reveal-zoom");
       // stagger siblings

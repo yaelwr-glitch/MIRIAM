@@ -202,3 +202,73 @@
     upd();
   }
 })();
+
+/* ---------- v5: PowerPoint-style entrances + popping dessert stickers ---------- */
+(function () {
+  "use strict";
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const set = (els, anim, step, start) => els.forEach((el, i) => { el.setAttribute("data-anim", typeof anim === "function" ? anim(i) : anim); el.dataset.delay = (start || 0) + i * (step || 0); });
+  const rtl = document.documentElement.dir === "rtl";
+  const START = rtl ? "right" : "left", END = rtl ? "left" : "right";
+
+  // headlines appear word by word
+  $$("main .section-head h2, #taste h2, #talk h2, .quiz-teaser h2, .about h2, .cta-box h2").forEach((h) => h.setAttribute("data-anim", "words"));
+  $$("main .section-head .eyebrow").forEach((e) => e.setAttribute("data-anim", "down"));
+
+  set($$("#who .grid > .card"), (i) => (i ? END : START), 150);
+  set($$("#taste .taste > div:first-child .slider-field"), START, 120, 200);
+  set($$("#taste .taste-result"), "flip", 0, 150);
+  set($$("#journey .journey-item"), (i) => (window.innerWidth > 860 ? (i % 2 ? END : START) : "up"), 0);
+  set($$("#journey .journey-cap"), "pop", 0);
+  set($$("#showcase .phone-wrap"), "rotate", 0);
+  set($$("#showcase .tool-tab"), END, 110, 150);
+  set($$("#tools .grid-3 .tool-card"), (i) => ["up", "zoom", "up"][i % 3], 90);
+  set($$(".quiz-teaser .blob"), "pop", 0, 250);
+  set($$("#result .compare > .card"), (i) => (i ? END : START), 180, 200);
+  set($$("#gallery .gallery figure"), "pop", 110);
+  set($$("#about .about-photo"), "flip", 0);
+  set($$("#about .about > div:last-child > p, #about blockquote"), END, 120, 150);
+  set($$("#testimonials .t-card"), "drop", 160);
+  set($$("#faq .faq details"), (i) => (i % 2 ? START : END), 80);
+  set($$("#talk .talk-points li"), START, 120, 300);
+  set($$("#talk .steps-card"), "flip-x", 0, 150);
+  set($$("#register .cta-box .price"), "pop", 0, 300);
+  set($$(".stats-strip .wrap > div"), "pop", 120);
+
+  // scroll motion (like Elementor motion effects)
+  $$("#gallery .gallery figure:nth-child(odd)").forEach((f) => f.setAttribute("data-scroll", "y:-0.06"));
+  $$("#gallery .gallery figure:nth-child(even)").forEach((f) => f.setAttribute("data-scroll", "y:0.05"));
+  $$("#about .about-photo").forEach((f) => f.setAttribute("data-scroll", "y:-0.08 r:-0.008"));
+
+  // dessert stickers (flat SVG illustrations in MIREL colors)
+  const D = "#301816", R = "#dc6e71", B = "#f6c3c4", C = "#fbf5f4", G = "#bb989b";
+  const ART = {
+    macaron: `<svg viewBox="0 0 100 80"><g class="wob"><ellipse cx="50" cy="56" rx="40" ry="15" fill="${R}"/><path d="M12 56c6 5 70 5 76 0" stroke="#b9484c" stroke-width="2" fill="none" stroke-dasharray="2 3"/><rect x="12" y="38" width="76" height="14" rx="7" fill="${C}"/><path d="M14 44c10 4 62 4 72 0" stroke="#f3dcd9" stroke-width="3" fill="none"/><ellipse cx="50" cy="34" rx="40" ry="17" fill="#e98d90"/><path d="M12 36c6 5 70 5 76 0" stroke="#b9484c" stroke-width="2" fill="none" stroke-dasharray="2 3"/><ellipse cx="38" cy="26" rx="14" ry="5" fill="#fff" opacity=".35"/></g></svg>`,
+    cupcake: `<svg viewBox="0 0 100 120"><g class="wob"><path d="M22 62h56l-8 50H30z" fill="${D}"/><path d="M30 62l4 50M42 62l1 50M54 62l-1 50M66 62l-4 50" stroke="#5a3a35" stroke-width="3"/><path d="M16 64c0-12 10-16 18-16-2-12 10-20 18-18 4-10 20-10 24 2 10 0 16 10 10 20 6 2 8 8 6 12z" fill="${B}"/><path d="M24 58c10-6 18 2 28-4s18 4 26-2" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/><circle cx="56" cy="22" r="9" fill="#b9484c"/><path d="M57 13c2-6 8-8 12-8" stroke="${D}" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="53" cy="19" r="2.5" fill="#fff" opacity=".6"/></g></svg>`,
+    whisk: `<svg viewBox="0 0 70 130"><g class="wob" fill="none" stroke-linecap="round"><rect x="28" y="84" width="14" height="42" rx="7" fill="${R}" stroke="none"/><path d="M35 84C14 64 12 22 35 6c23 16 21 58 0 78" stroke="${G}" stroke-width="3"/><path d="M35 84C24 62 24 24 35 8c11 16 11 54 0 76" stroke="${G}" stroke-width="3"/><path d="M35 84V8" stroke="${G}" stroke-width="3"/><circle cx="35" cy="120" r="2.5" fill="${D}" stroke="none"/></g></svg>`,
+    choc: `<svg viewBox="0 0 110 80"><g class="wob"><path d="M8 18h80l14 14v40H8z" fill="#4a2c25"/><path d="M8 18h80l14 14v40H8z" fill="none" stroke="#2d1c18" stroke-width="2"/><g fill="#5f3a31"><rect x="14" y="24" width="20" height="18" rx="3"/><rect x="40" y="24" width="20" height="18" rx="3"/><rect x="66" y="24" width="20" height="18" rx="3"/><rect x="14" y="48" width="20" height="18" rx="3"/><rect x="40" y="48" width="20" height="18" rx="3"/><rect x="66" y="48" width="20" height="18" rx="3"/></g><path d="M0 40l14-6 6 40H4z" fill="${R}"/><path d="M4 74l10-38" stroke="#fff" stroke-width="1.5" opacity=".4"/></g></svg>`,
+    slice: `<svg viewBox="0 0 120 100"><g class="wob"><path d="M10 40l100-22v62L10 92z" fill="#f3e0c8"/><path d="M10 58l100-16v12L10 72z" fill="${R}"/><path d="M10 76l100-12v6L10 84z" fill="#5f3a31"/><path d="M10 40l100-22-6-8L6 32z" fill="${B}"/><path d="M6 32c8 6 14-2 22 3s14-2 22 2 14-3 22 0 14-4 22-1" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/><circle cx="70" cy="14" r="8" fill="#b9484c"/><path d="M70 6c2-4 6-5 9-4" stroke="${D}" stroke-width="2" fill="none" stroke-linecap="round"/></g></svg>`,
+    heart: `<svg viewBox="0 0 100 90"><g class="wob"><path d="M50 84C20 64 6 46 8 28 10 12 26 4 40 10c5 2 8 6 10 10 2-4 5-8 10-10 14-6 30 2 32 18 2 18-12 36-42 56z" fill="#c98b5a"/><path d="M50 74C26 58 16 44 18 30c2-10 12-15 21-11 5 2 8 7 11 12 3-5 6-10 11-12 9-4 19 1 21 11 2 14-8 28-32 44z" fill="${B}"/><circle cx="36" cy="34" r="3" fill="#fff"/><circle cx="60" cy="44" r="3" fill="#fff"/><circle cx="48" cy="56" r="3" fill="#fff"/></g></svg>`,
+  };
+  const STICKERS = [
+    ["#who", "cupcake", "top:40px; inset-inline-start:4%; --s:92px", "drop", 300],
+    ["#taste", "macaron", "bottom:30px; inset-inline-start:46%; --s:96px", "pop", 400, "hide-sm"],
+    ["#learn", "whisk", "top:120px; inset-inline-end:6%; --s:70px", "rotate", 200],
+    ["#tools", "macaron", "top:60px; inset-inline-start:5%; --s:84px", "pop", 300],
+    ["#result", "choc", "top:30px; inset-inline-end:7%; --s:104px", START, 200],
+    ["#gallery", "slice", "top:36px; inset-inline-start:6%; --s:110px", "pop", 250],
+    ["#faq", "heart", "top:50px; inset-inline-end:7%; --s:80px", "drop", 300],
+    ["#talk", "cupcake", "bottom:20px; inset-inline-start:3%; --s:78px", "pop", 500, "hide-sm"],
+  ];
+  STICKERS.forEach(([sel, art, style, anim, delay, cls]) => {
+    const host = document.querySelector(sel); if (!host) return;
+    const s = document.createElement("div");
+    s.className = "sticker" + (cls ? " " + cls : "");
+    s.setAttribute("aria-hidden", "true");
+    s.setAttribute("style", style);
+    s.setAttribute("data-anim", anim); s.dataset.delay = delay;
+    s.setAttribute("data-scroll", "y:-0.12 r:0.02");
+    s.innerHTML = ART[art];
+    host.appendChild(s);
+  });
+})();
