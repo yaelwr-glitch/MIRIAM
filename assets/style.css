@@ -840,3 +840,11 @@ main { overflow-x: clip; }
   .sticker .wob { animation: none !important; }
 }
 .js-anim .card[data-anim].anim-in:hover { transform: translateY(-3px); }
+
+/* v6 — PowerPoint "Spinner" (spin around itself) and "Swivel" (coin flip) entrances */
+.js-anim [data-anim="spin"] { transform: rotate(-360deg) scale(.2); transition: opacity .5s ease, transform 1.3s cubic-bezier(.22,1.2,.36,1); transition-delay: var(--ad, 0s); }
+.js-anim [data-anim="swivel"] { transform: perspective(700px) rotateY(-540deg) scale(.6); transition: opacity .5s ease, transform 1.5s cubic-bezier(.22,1,.36,1); transition-delay: var(--ad, 0s); }
+.js-anim [data-anim="spin"].anim-in, .js-anim [data-anim="swivel"].anim-in { opacity: 1; transform: none; }
+/* small round icons spin once more on hover */
+.spin-hover { transition: transform .9s cubic-bezier(.22,1,.36,1), background .3s, color .3s; }
+.spin-hover:hover, .tool-tab:hover .spin-hover, .card:hover .spin-hover { transform: rotate(360deg); }

@@ -272,3 +272,19 @@
     host.appendChild(s);
   });
 })();
+
+/* ---------- v6: spin / swivel entrances (PowerPoint "Spinner" / "Swivel") ---------- */
+(function () {
+  "use strict";
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+  const set = (els, anim, step, start) => els.forEach((el, i) => { el.setAttribute("data-anim", anim); el.dataset.delay = (start || 0) + i * (step || 0); });
+  set($$(".stats-strip .wrap > div"), "swivel", 150);
+  set($$("#journey .journey-item .dot"), "spin", 0, 150);
+  set($$("#testimonials .t-card .q"), "spin", 160, 500);
+  set($$(".quiz-teaser .blob"), "spin", 0, 200);
+  set($$("#register .cta-box .price"), "swivel", 0, 300);
+  set($$("#showcase .tool-tab .card-icon"), "spin", 110, 300);
+  set($$("#tools .grid-4 .card-icon, .about-photo .float-sphere"), "spin", 100, 200);
+  $$(".sticker").forEach((s, i) => { if (i % 2 === 0) s.setAttribute("data-anim", "spin"); });
+  $$(".journey-cap .dot, .card-icon").forEach((d) => d.classList.add("spin-hover"));
+})();
